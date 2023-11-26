@@ -28,6 +28,8 @@ function addToCart(e, id) {
                     // Hiển thị modal khi không phải trang login
                     var successModal = new bootstrap.Modal(document.getElementById('successModal'));
                     successModal.show();
+                    var headerTotalItems = document.getElementById('headerTotalItems');
+                    headerTotalItems.textContent = parseInt(headerTotalItems.textContent) + parseInt(quantity);
                 }
             } else {
                 console.error('Đã có lỗi trong quá trình gửi request.');

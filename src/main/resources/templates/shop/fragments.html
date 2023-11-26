@@ -27,7 +27,7 @@
 
 <body>
     <!-- start header -->
-    <div th:fragment="header" class="header">
+    <div th:fragment="header" class="header border-bottom border-dark">
         <div class="container">
             <div class="row my-2 align-items-center">
                 <div class="col-5 d-flex">
@@ -98,7 +98,7 @@
                                 <i class="fa-solid fa-cart-shopping"></i>
                                 <div th:if="${session.username != null}"
                                     class="cart__quantity d-flex justify-content-center align-items-center"
-                                    th:text="${session.totalItems}"></div>
+                                    th:text="${session.totalItems}" id="headerTotalItems"></div>
                                 <span style="font-size: 1.2em;">Giỏ hàng</span>
                             </a>
                         </li>
@@ -254,7 +254,7 @@
                 <!-- Your error message will appear here -->
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                <button type="button" id="closeModalBtn" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
               </div>
             </div>
           </div>

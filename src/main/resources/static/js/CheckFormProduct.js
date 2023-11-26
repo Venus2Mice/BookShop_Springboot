@@ -28,9 +28,9 @@ document.getElementById('form-product').addEventListener('submit', function (eve
     }
 
     // Kiểm tra độ dài của product name
-    if (productNameInput.value.length > 50) {
+    if (productNameInput.value.length > 100) {
         event.preventDefault();
-        showErrorModal('Product name cannot exceed 50 characters.');
+        showErrorModal('Product name cannot exceed 100 characters.');
         return;
     }
 

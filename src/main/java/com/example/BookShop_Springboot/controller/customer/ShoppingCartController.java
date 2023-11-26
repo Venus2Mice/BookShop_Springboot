@@ -22,6 +22,7 @@ import com.example.BookShop_Springboot.model.ShoppingCart;
 import com.example.BookShop_Springboot.service.CustomerService;
 import com.example.BookShop_Springboot.service.ProductService;
 import com.example.BookShop_Springboot.service.ShoppingCartService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,7 +37,7 @@ public class ShoppingCartController {
     private final CustomerService customerService;
 
     @GetMapping("/cart")
-    public String cart(Model model, Principal principal,HttpSession session) {
+    public String cart(Model model, Principal principal, HttpSession session) {
         if (principal == null) {
             return loginPath;
         } else {
@@ -93,9 +94,20 @@ public class ShoppingCartController {
             String username = principal.getName();
             ShoppingCart shoppingCart = cartService.updateCart(productDto, quantity, username);
             model.addAttribute("shoppingCart", shoppingCart);
-            return "redirect:/customer/cart";
-        }
 
+            // Tạo một mảng chứa totalItems và totalPrice
+            int totalItems = shoppingCart.getTotalItems();
+            double totalPrice = shoppingCart.getTotalPrice();
+            Object[] result = { totalItems, totalPrice };
+
+            // Chuyển đổi mảng thành JSON
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                return objectMapper.writeValueAsString(result);
+            } catch (Exception e) {
+                return "Lỗi ";
+            }
+        }
     }
 
     @RequestMapping(value = "/update-cart", method = RequestMethod.POST, params = "action=delete")
@@ -110,7 +122,19 @@ public class ShoppingCartController {
             String username = principal.getName();
             ShoppingCart shoppingCart = cartService.removeItemFromCart(productDto, username);
             model.addAttribute("shoppingCart", shoppingCart);
-            return "redirect:/customer/cart";
+            
+            // Tạo một mảng chứa totalItems và totalPrice
+            int totalItems = shoppingCart.getTotalItems();
+            double totalPrice = shoppingCart.getTotalPrice();
+            Object[] result = { totalItems, totalPrice };
+
+            // Chuyển đổi mảng thành JSON
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                return objectMapper.writeValueAsString(result);
+            } catch (Exception e) {
+                return "Lỗi ";
+            }
         }
     }
 }

@@ -72,11 +72,15 @@
                                     </div>
                                     <div class="product__details p-2">
                                         <div class="product__name mb-2" th:text="${product.name}"></div>
+                                        <div class="py-2">THỂ LOẠI: <span class="text-muted" th:text="${product.category.name}"></span></div>
                                         <div class="product__info d-flex justify-content-between align-items-center">
                                             <div class="product__price fw-bold"><span
-                                                    th:text="${product.salePrice}">1000000</span> &#8363;</div>
-                                            <div class="product__sold fw-bold">Quantity: <span
-                                                    th:text="${product.currentQuantity}"></span></div>
+                                                    th:text="${product.discountPrice}">1000000</span> &#8363;</div>
+                                            <div th:if="${ product.discount !=0}" class="product__sold fw-bold">
+                                                <i class="fas fa-tag"></i>
+                                                <s class="product__price" style="font-size: 1.3em; color: #515E79;"
+                                                    th:text="${product.salePrice}">$20.99</s>
+                                            </div>
                                         </div>
                                     </div>
                                 </a>

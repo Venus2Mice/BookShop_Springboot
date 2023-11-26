@@ -61,7 +61,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-6">
-                                        <h5 th:text="${product.name}"></h5>
+                                        <h4 th:text="${product.name}"></h4>
                                         <div class="d-flex flex-row">
                                             <div class="text-danger mb-1 me-2">
                                                 <i class="fa fa-star"></i>
@@ -91,16 +91,33 @@
                                     </div>
                                     <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                                         <div class="d-flex flex-row align-items-center mb-1">
-                                            <h4 class="mb-1 me-1 product__price" th:text="${product.salePrice}"></h4>
-                                            <span class="text-danger"><s>$20.99</s></span>
+                                            <h4 class="mb-1 me-1 product__price" th:text="${product.discountPrice}">
+                                            </h4>
+                                            <span class="text-danger"><s th:if="${ product.discount !=0}"
+                                                    class="product__price"
+                                                    th:text="${product.salePrice}">$20.99</s></span>
                                         </div>
-                                        <h6 class="text-success">Miễn phí giao hàng</h6>
+                                        <span th:if="${product.discount != 0.0}" class="text-danger">
+                                            <i class="fas fa-tag"></i>
+                                            Giảm giá đến:
+                                            <strong th:text="${product.discount}+'%'"
+                                                style="font-size: 1.2em;">50%</strong>
+                                        </span>
+                                        <h6 class="text-success" th:if="${product.currentQuantity!=0}">Miễn phí giao
+                                            hàng</h6>
+                                        <h5 class="text-danger font-italic" th:unless="${product.currentQuantity != 0}"
+                                            style="font-style: italic !important;">SOLD OUT</h5>
                                         <div class="d-flex flex-column mt-4">
                                             <a th:href="@{/product-detail/{id}(id=${product.id})}"
-                                                class="btn btn-primary btn-sm" type="button">Xem chỉ tiết</a>
-                                            <a href="#" th:attr="onclick=|addToCart(event,'${product.id}')|"
+                                                class="btn btn-primary btn-sm" type="button">Xem chi tiết</a>
+                                            <a href="#" th:if="${product.currentQuantity!=0}"
+                                                th:attr="onclick=|addToCart(event,'${product.id}')|"
                                                 class="btn btn-outline-primary btn-sm mt-2" type="button">
-                                                Thêm vào giỏ hàng 
+                                                Thêm vào giỏ hàng
+                                            </a>
+                                            <a href="#" th:unless="${product.currentQuantity!=0}"
+                                                class="btn btn-outline-primary btn-sm mt-2" type="button">
+                                                Đã hết hàng
                                             </a>
                                             <!-- Button trigger modal -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"

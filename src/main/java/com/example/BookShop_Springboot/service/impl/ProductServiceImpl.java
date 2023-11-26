@@ -17,6 +17,8 @@ import com.example.BookShop_Springboot.repository.ProductRepository;
 import com.example.BookShop_Springboot.service.ProductService;
 import com.example.BookShop_Springboot.utils.ImageUpload;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -102,6 +104,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "products", allEntries = true)
     public void enableById(Long id) {
         Product product = productRepository.getReferenceById(id);
         product.setActivated(true);
@@ -110,6 +113,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @CacheEvict(cacheNames = "products", allEntries = true)
     public void deleteById(Long id) {
         Product product = productRepository.getReferenceById(id);
         product.setDeleted(true);
@@ -126,7 +130,9 @@ public class ProductServiceImpl implements ProductService {
         productDto.setDescription(product.getDescription());
         productDto.setSalePrice(product.getSalePrice());
         productDto.setDiscount(product.getDiscount());
-        productDto.setDiscountPrice(product.getSalePrice() * (1 - product.getDiscount()/100));
+        productDto.setDiscountPrice(product.getSalePrice() * (1 - product.getDiscount() / 100));
+        productDto.setDiscountPrice(
+                new BigDecimal(productDto.getDiscountPrice()).setScale(2, RoundingMode.HALF_UP).doubleValue());
         productDto.setCurrentQuantity(product.getCurrentQuantity());
         productDto.setCategory(product.getCategory());
         productDto.setImage(product.getImage());
@@ -222,7 +228,9 @@ public class ProductServiceImpl implements ProductService {
             productDto.setCurrentQuantity(product.getCurrentQuantity());
             productDto.setSalePrice(product.getSalePrice());
             productDto.setDiscount(product.getDiscount());
-            productDto.setDiscountPrice(product.getSalePrice() * (1 - product.getDiscount()/100));
+            productDto.setDiscountPrice(product.getSalePrice() * (1 - product.getDiscount() / 100));
+            productDto.setDiscountPrice(
+                    new BigDecimal(productDto.getDiscountPrice()).setScale(2, RoundingMode.HALF_UP).doubleValue());
             productDto.setDescription(product.getDescription());
             productDto.setImage(product.getImage());
             productDto.setCategory(product.getCategory());
