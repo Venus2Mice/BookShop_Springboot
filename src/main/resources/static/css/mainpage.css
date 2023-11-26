@@ -1,0 +1,194 @@
+.body__top {}
+
+.catagory {
+    border-radius: 12px 0 0 12px;
+    height: 580px;
+    /* background-color: #f3f6fd; */
+    background-color: var(--text-primary-color);
+    /* background-color: #DAEDF8; */
+    /* background-color: #414f6b; */
+    /* border: 3px solid var(--secondary-color); */
+}
+
+.catagory__list {}
+
+.catagogy__list-title {
+    color: var(--text-primary-color);
+    color: var(--shadow-color);
+}
+
+.catagory__list-item {}
+
+.catagory__item-icon {
+    color: var(--text-primary-color);
+    color: var(--shadow-color);
+}
+
+.catagory__item-title {
+    color: var(--text-primary-color);
+    color: var(--shadow-color);
+}
+
+.catagory__list-button {}
+
+.more--btn {
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 8px;
+}
+
+.banner {
+    height: 580px;
+    overflow: hidden;
+    border-radius: 0px 16px 16px 0px;
+}
+
+.banner__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 0px 16px 16px 0px;
+}
+
+.body__product {
+    /* box-shadow: 0 0 4px #dadada; */
+    border-radius: 12px 12px 12px 12px;
+    background-color: #f3f6fd;
+}
+
+.body__product-title {
+    border-radius: 12px 12px 0px 0px;
+    font-size: 24px;
+}
+
+.bestsell {
+    color: var(--white-color);
+    background-color: var(--price-color);
+}
+
+.bycatagory {
+    color: var(--white-color);
+    background-color: var(--primary-color);
+}
+
+.body__product-list {}
+
+.product__list-item {}
+
+.product__list-item .wrapper {
+    border-radius: 12px;
+}
+
+.product__list-item {}
+
+.wrapper:hover {
+    background-color: var(--white-color);
+    box-shadow: 0 0 8px #dadada;
+}
+
+.product__img {
+    height: 300px;
+    overflow: hidden;
+    border-radius: 12px 12px 0 0;
+}
+
+.product__img img {
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    height: 100%;
+    width: 100%;
+}
+
+.product__details {}
+
+.product__name {
+    font-size: 18px;
+    color: var(--text-primary-color);
+    height: 60px;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product__info {}
+
+.product__sold {
+    font-size: 16px;
+    color: var(--text-primary-color);
+}
+
+.product__price {
+    color: var(--price-color);
+    font-size: 24px;
+}
+
+.body__more {
+    border-radius: 0px 0px 12px 12px;
+}
+
+.body__more--btn {
+    width: fit-content;
+    height: fit-content;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    border-radius: 8px;
+}
+
+/* CSS to control image size */
+.product__img {
+    padding: 10px;
+    /* Tạo khoảng cách xung quanh hình ảnh */
+    box-sizing: border-box;
+    /* Đảm bảo padding không tăng kích thước tổng của phần tử */
+    display: flex;
+    /* Sử dụng flexbox để căn giữa hình ảnh */
+    justify-content: center;
+    /* Căn giữa theo chiều ngang */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+    overflow: hidden;
+    /* Ẩn phần hình ảnh vượt quá phạm vi của div */
+}
+
+.product__img img {
+    max-width: 100%;
+    /* Đảm bảo hình ảnh không vượt quá chiều rộng của phần tử cha */
+    max-height: 100%;
+    /* Đảm bảo hình ảnh không vượt quá chiều cao của phần tử cha */
+    object-fit: contain;
+    /* Hiển thị hình ảnh toàn bộ mà không bị cắt bớt */
+}
+
+.product__list-item {
+    position: relative;
+    /* Ensure relative positioning */
+    overflow: hidden;
+    /* Hide overflow to prevent horizontal scrollbars */
+}
+
+.product__link {
+    display: block;
+    /* Ensure the <a> tag behaves like a block element */
+    width: 100%;
+    /* Make the <a> tag take the full width of its parent */
+    height: 100%;
+    /* Optionally set height to fill the parent completely */
+    text-decoration: none;
+    /* Remove default underline for links */
+    color: inherit;
+    /* Inherit color from parent */
+    transition: transform 0.2s ease;
+    /* Optional: add transition effect */
+}
+
+/* Optional hover effect */
+.product__link:hover {
+    transform: scale(1.05);
+    /* Scale up slightly on hover */
+    background-color: white;
+    /* Màu nền khi hover */
+    border-radius: 10px;
+    /* Điều chỉnh bán kính để làm tròn góc */
+}

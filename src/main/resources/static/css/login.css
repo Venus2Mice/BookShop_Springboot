@@ -1,0 +1,52 @@
+.login {
+
+}
+
+.login__title {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--text-primary-color);
+}
+
+.wrapper a {
+    color: var(--text-primary-color);
+}
+
+.active {
+    border-bottom: 4px solid var(--price-color);
+    background-color: var(--white-color);
+}
+
+.login-form {
+
+}
+
+.form-group {
+    font-size: 18px;
+}
+
+.form-label {
+    font-weight: bold;
+    color: var(--text-primary-color);
+}
+
+.form-error {
+    color: var(--price-color);
+    font-size: 12px;
+}
+
+.form-input {
+
+}
+
+.login__button {
+
+}
+
+.login--btn {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-weight: bold;
+    border-radius: 12px;
+    border: none;
+}

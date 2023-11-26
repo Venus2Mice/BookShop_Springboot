@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <th:block th:insert="~{/shop/fragments :: header-include}">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/css/mainpage.css}">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- start header -->
+        <div th:replace="~{/shop/fragments::header}"></div>
+        <!-- end header -->
+
+        <!-- start body -->
+        <div class="body">
+            <div class="container">
+                <div class="body__top row d-flex justify-content-between mt-4">
+                    <div class="col-3 px-0">
+                        <div class="catagory pb-2 px-0">
+                            <div class="catagogy__list-title text-center py-3 fw-bold">Catagory</div>
+
+                            <ul class="catagory__list p-0">
+                                <li class="catagory__item py-2 px-4" th:each="category : ${categories}">
+                                    <a href="" class="d-flex align-items-center">
+                                        <div class="catagory__item-icon me-3">
+                                            <i class="fa-solid fa-book"></i>
+                                        </div>
+
+                                        <div class="catagory__item-title" th:text="${category.name}"></div>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div
+                                class="catagory__list-button d-flex justify-content-center align-items-center pb-2 pt-4">
+                                <div class="btn--wrapper">
+                                    <a href="">
+                                        <button class="more--btn px-4 py-1">More</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-9 px-0">
+                        <div class="banner px-0">
+                            <a href="">
+                                <img class="banner__img"
+                                    th:src="@{/img/446UR-Kunikida-Hanamaru-Cool-Flower-Park-nDrLDT.png}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body__product row mt-5">
+                    <div class="container-fluid">
+                        <div class="body__product-title bestsell row px-3 py-3 fw-bold">
+                            Best sell
+                        </div>
+
+                        <ul class="body__product-list row px-3 py-4">
+                            <!-- Loop through products -->
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3"
+                                th:each="product:${products}">
+                                <a th:href="@{/product-detail/{id}(id=${product.id})}" class="product__link">
+                                    <div class="product__img">
+                                        <img th:src="'data:image/jpeg;base64,' + ${product.image}" class="img-fluid"
+                                            alt="Image">
+                                    </div>
+                                    <div class="product__details p-2">
+                                        <div class="product__name mb-2" th:text="${product.name}"></div>
+                                        <div class="product__info d-flex justify-content-between align-items-center">
+                                            <div class="product__price fw-bold"><span
+                                                    th:text="${product.salePrice}">1000000</span> &#8363;</div>
+                                            <div class="product__sold fw-bold">Quantity: <span
+                                                    th:text="${product.currentQuantity}"></span></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+
+
+
+                        <div class="body__more row d-flex justify-content-center align-items-center py-3">
+                            <div class="btn--wrapper">
+                                <a href="/products/0">
+                                    <button class="body__more--btn px-5 py-2">Xem thêm</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body__product row mt-5">
+                    <div class="container-fluid">
+                        <div class="body__product-title bycatagory row px-3 py-3 fw-bold">
+                            Catagory
+                        </div>
+
+                        <ul class="body__product-list row px-3 py-4">
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="product__list-item col-12 col-md-6 col-lg-4 col-xl-3 pt-3">
+                                <div class="wrapper">
+                                    <a href="">
+                                        <div class="product__img">
+                                            <img th:src="@{/img/679UR-Nakasu-Kasumi-Which-One-s-Cuter-Fancy-Pixie-J6Slal.png}"
+                                                alt="">
+                                        </div>
+
+                                        <div class="product__details p-2">
+                                            <div class="product__name mb-2">Product's name</div>
+                                            <div
+                                                class="product__info d-flex justify-content-between align-items-center">
+                                                <div class="product__price fw-bold"><span>1000000</span> &#8363;</div>
+                                                <div class="product__sold fw-bold">sold: <span>12</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="body__more row d-flex justify-content-center align-items-center py-3">
+                            <div class="btn--wrapper">
+                                <a href="">
+                                    <button class="body__more--btn px-5 py-2">More</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end body -->
+
+        <!-- start footer -->
+        <footer th:replace="~{/shop/fragments::footer}"></footer>
+        <!-- end footer -->
+    </div>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+
+    <!-- Fontawsome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script th:src="@{/js/formatCurrency.js}"></script>
+</body>
+
+</html>

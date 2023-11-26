@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <th:block th:insert="~{/shop/fragments :: header-include}">
+    </th:block>
+    <link rel="stylesheet" th:href="@{/css/transactions.css}">
+
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- start header -->
+        <div th:replace="~{/shop/fragments::header}"></div>
+        <!-- end header -->
+
+        <!-- start body -->
+        <div class="body">
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="body__title py-4 text-center">
+                        <span>Order History</span>
+                    </div>
+                </div>
+
+                <div class="row d-flex justify-content-center">
+                    <div class="col-10">
+                        <ul class="body__list p-0">
+
+                            <li class="body__list-item mb-5">
+                                <div class="order__list-header cancelled d-flex justify-content-between px-3 py-3">
+                                    <div class="order__list-date">11/11/2023</div>
+                                    <div class="order__list-status">Cancelled</div>
+                                </div>
+                                <ul class="order__list-body p-0">
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="order__list-footer px-3 py-4 text-end">
+                                    Total: 46000 &#8363;
+                                </div>
+                            </li>
+
+                            <li class="body__list-item mb-5">
+                                <div class="order__list-header completed d-flex justify-content-between px-3 py-3">
+                                    <div class="order__list-date">11/11/2023</div>
+                                    <div class="order__list-status">Completed</div>
+                                </div>
+                                <ul class="order__list-body p-0">
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="order__list-footer px-3 py-4 text-end">
+                                    Total: 46000 &#8363;
+                                </div>
+                            </li>
+
+                            <li class="body__list-item mb-5">
+                                <div class="order__list-header pending d-flex justify-content-between px-3 py-3">
+                                    <div class="order__list-date">11/11/2023</div>
+                                    <div class="order__list-status">Pending</div>
+                                </div>
+                                <ul class="order__list-body p-0">
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+
+                                    <li class="order__list-item ps-5 pe-3 py-3">
+                                        <a href="" class="d-flex">
+                                            <div class="order__item-img me-3">
+                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
+                                            </div>
+    
+                                            <div class="order__item-details d-flex flex-column">
+                                                <span class="order__item-name">Product's name</span>
+                                                <span class="order__item-quantity">Qt: 3</span>
+                                            </div>
+    
+                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="order__list-footer px-3 py-4 text-end">
+                                    Total: 46000 &#8363;
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+              
+                <!-- page-item co class="disable" de an -->
+                <div class="row d-flex justify-content-center align-items-center">
+                    <ul class="pagination p-0">
+                        <li class="page-item d-flex justify-content-center align-items-center me-3" id="arrow--left">
+                            <a href="" class="page--link">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </a>
+                        </li>
+
+                        <li class="page-item active d-flex justify-content-center align-items-center me-3">
+                            <a href="" class="page--link">1</a>
+                        </li>
+
+                        <li class="page-item d-flex justify-content-center align-items-center me-3">
+                            <a href="" class="page--link">2</a>
+                        </li>
+
+                        <li class="page-item d-flex justify-content-center align-items-center me-3">
+                            <a href="" class="page--link">3</a>
+                        </li>
+
+                        <li class="page-item d-flex justify-content-center align-items-center me-3">
+                            <a href="" class="page--link">...</a>
+                        </li>
+
+                        <li class="page-item d-flex justify-content-center align-items-center me-3">
+                            <a href="" class="page--link">10</a>
+                        </li>
+
+                        <li class="page-item d-flex justify-content-center align-items-center me-3" id="arrow--right">
+                            <a href="" class="page--link">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end body -->
+    
+        <!-- start footer -->
+        <footer th:replace="~{/shop/fragments::footer}"></footer>
+        <!-- end footer -->
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+    <!-- Fontawsome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</body>
+</html>

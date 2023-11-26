@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{/admin/fragments::header}"></head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!--Sidebar-->
+        <ul th:replace="~{/admin/fragments::sidebar}"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav th:replace="~{/admin/fragments::top-navbar}"></nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#exampleAddSupplierModal" data-whatever="@mdo">ADD NEW SUPPLIER
+                    </button>
+                    <p th:if="${size == 0}">NO SUPPLIER</p>
+                    <div th:if="${success}" class="text-center alert alert-success">
+                        <p th:text="${success}">
+                        </p>
+                    </div>
+                    <div th:if="${error}" class="text-center alert alert-danger">
+                        <p th:text="${error}"></p>
+                    </div>
+
+                    <table class="table table-bordered " th:if="${size > 0}">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Supplier Name</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Update</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="supplier,iStat : ${suppliers}" >
+                                <th scope="row" th:text="${iStat.index+1}"></th>
+                                <td th:text="${supplier.name}"></td>
+                                <td th:text="${supplier.phoneNumber}"></td>
+                                <td th:text="${supplier.email}"></td>
+                                <td th:text="${supplier.address}"></td>
+                                <td>
+                                    <a id="editButton" th:href="@{/admin/findSupplierById(id = ${supplier.id})}"
+                                        class="btn btn-primary">Update</a>
+                                </td>
+                                <td>
+                                    <a th:if="${supplier.is_deleted} == true"
+                                        th:href="@{/admin/enable-supplier(id = ${supplier.id})}"
+                                        class="btn btn-primary">Enable</a>
+                                    <a th:if="${supplier.is_deleted} == false"
+                                        th:href="@{/admin/delete-supplier(id = ${supplier.id})}"
+                                        class=" btn btn-danger">Disable</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer th:replace="~{/admin/fragments::footer}"></footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{/admin/fragments::scroll}"></a>
+
+    <!--Add Categories Modal-->
+    <div class="modal fade" id="exampleAddSupplierModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleAddSupplierModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleAddSupplierModalLabel">New SUPPLIER</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/save-supplier}" method="post">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">SUPPLIER Name:</label>
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber" class="col-form-label">SUPPLIER Phone Number:</label>
+                            <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-form-label">SUPPLIER Address:</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-form-label">SUPPLIER Email:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End-->
+
+    <!-- Edit supplier Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit SUPPLIER</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/admin/update-supplier}" method="put">
+                        <div class="form-group">
+                            <label for="idEdit" class="col-form-label">ID
+                            </label> <input type="text" class="form-control" id="idEdit" name="id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nameEdit" class="col-form-label">SUPPLIER
+                                Name</label> <input type="text" class="form-control" id="nameEdit" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneEdit" class="col-form-label">SUPPLIER
+                                Phone Number</label> <input type="text" class="form-control" id="phoneEdit"
+                                name="phoneNumber">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailEdit" class="col-form-label">SUPPLIER
+                                Email</label> <input type="mail" class="form-control" id="emailEdit" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="addressEdit" class="col-form-label">SUPPLIER
+                                Address</label> <input type="text" class="form-control" id="addressEdit" name="address">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+    <!-- Bootstrap core JavaScript-->
+    <div th:replace="~{/admin/fragments::script}"></div>
+
+    <script th:src="@{/js/suppliers.js}"></script>
+</body>
+
+</html>

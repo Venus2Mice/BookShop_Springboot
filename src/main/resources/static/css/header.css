@@ -1,0 +1,250 @@
+.header {
+    background-color: var(--white-color);
+}
+
+.header__logo {
+
+}
+
+.header__logo--img {
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.header__searchbar {
+    height: 48px;
+}
+
+.header__searchbar-input {
+    border: none;
+    background-color: var(--shadow-color);
+    color: var(--text-primary-color);
+    border-radius: 8px 0 0 8px;
+}
+
+.header__searchbar-icon {
+    background-color: var(--shadow-color);
+    color: var(--text-primary-color);
+    border-radius: 0 8px 8px 0;
+    font-size: 18px;
+}
+
+.header__item {
+
+}
+
+.user {
+    position: relative;
+}
+
+.user:hover .user__option {
+    display: block;
+}
+
+.user__option {
+    display: none;
+    position: absolute;
+    top: 48px;
+    right: -42px;
+    width: 200px;
+    box-shadow: 0 0 4px #dadada;
+    background-color: var(--white-color);
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.user__option:after {
+    content: "";
+    width: 200px;
+    height: 20px; 
+    position: absolute;
+    top: -20px;
+}
+
+.user__option-item {
+
+}
+
+.user__option-item:hover {
+    background-color: var(--shadow-color);
+}
+
+.user__option-item a {
+    color: var(--primary-color);
+}
+
+.header__item-avatar {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    overflow: hidden;
+}
+
+.header__item-avatar--img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.separate {
+    height: 20px;
+    width: 1px;
+    border: 1px solid var(--text-primary-color);
+}
+
+.header__item svg {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+.header__item span {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-primary-color);
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.header__item span:hover {
+    color: var(--secondary-color);
+}
+
+.cart {
+    position: relative;
+}
+
+.cart:hover .cart__list {
+    display: block;
+}
+
+.cart__quantity {
+    position: absolute;
+    top: -14px;
+    right: -8px;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    color: var(--text-primary-color);
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #ffd31c;
+}
+
+.cart__list {
+    position: absolute;
+    display: none;
+    border-radius: 8px;
+    box-shadow: 0 0 4px #dadada;
+    right: -46px;
+    top: 52px;
+    background-color: var(--white-color);
+}
+
+.cart__list:after {
+    content: "";
+    top: -24px;
+    right: 0px;
+    position: absolute;
+    height: 40px;
+    width: 120px;
+}
+
+.cart__list-title {
+    color: var(--text-primary-color);
+    font-weight: bold;
+}
+
+.cart__List-body {
+
+}
+
+.cart__list-item {
+
+}
+
+.cart__list-item:hover {
+    background-color: var(--shadow-color);
+}
+
+.cart__item--img {
+    height: 48px;
+    width: 48px;
+    overflow: hidden;
+    border: 1px solid var(--shadow-color);
+}
+
+.cart__item--img img {
+    height: 48px;
+    width: 48px;
+    object-fit: cover;
+}
+
+.cart__item-name {
+    width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-primary-color);
+}
+
+.cart__item-info {
+
+}
+
+.cart__item-quantity {
+    color: var(--primary-color);
+}
+
+.cart__item-quantity span {
+    font-weight: normal;
+    color: var(--primary-color);
+}
+
+.cart__item-price {
+    width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--price-color);
+}
+
+.cart__list-footer {
+
+}
+
+.cart__list-info {
+
+}
+
+.cart__list-total {
+    color: var(--price-color);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.cart__list-left {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary-color);
+}
+
+.cart__list-button {
+    background-color: var(--cart-color);
+    color: var(--text-primary-color);
+    font-weight: bold;
+}
+
+.subheader {
+}
+
+.subheader__icon {
+
+}
+
+.subheader__icon svg {
+    font-size: 28px;
+    color: var(--primary-color);
+}

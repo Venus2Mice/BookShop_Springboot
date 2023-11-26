@@ -1,0 +1,122 @@
+:root {
+    --white-color: white;
+    --black-color: black;
+    --text-primary-color: #515E79;
+    --text-secondary-color: #8A93AA;
+    --primary-color: #7589F9;
+    --secondary-color: #77DDD2;
+    --secondary-color: #5eddc0;
+    --cart-color: #ffd31c;
+    --shadow-color: #EFF1F4;
+    --price-color: #FB7373;
+}
+
+* {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+ul {
+    margin: 0;
+}
+
+.wrapper {
+    width: fit-content;
+    height: fit-content;
+}
+
+.btn--wrapper {
+    width: fit-content;
+    height: fit-content;
+}
+
+/* paginaiton */
+
+.pagination {
+    width: fit-content;
+}
+
+.page-item {
+    background-color: var(--primary-color);
+    border: 1px solid var(--shadow-color);
+    border-radius: 4px;
+    height: 36px;
+    width: 44px;
+}
+
+.page-item:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.page--link {
+    color: var(--white-color);
+    height: fit-content;
+    width: fit-content;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.active {
+    background-color: var(--secondary-color);
+}
+
+.disabled {
+    display: none !important;
+}
+
+.notify-overlay {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.notify {
+    width: 460px;
+    border-radius: 12px;
+    background-color: var(--shadow-color);
+}
+
+.notify__header {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    font-size: 20px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.notify__content {
+    color: var(--text-primary-color);
+    font-size: 24px;
+}
+
+.notify__button {
+    border-radius: 0px 0px 12px 12px;
+}
+
+.ok--btn {
+    font-size: 20px;
+    background-color: var(--price-color);
+    color: var(--white-color);
+    border-radius: 4px;
+}
+
+.ok--btn:hover {
+    cursor: pointer;
+}

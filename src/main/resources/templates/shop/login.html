@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <th:block th:insert="~{/shop/fragments :: header-include}">
+    </th:block>
+    <style>
+        .divider:after,
+        .divider:before {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+
+        .h-custom {
+            height: calc(100% - 73px);
+        }
+
+        @media (max-width: 450px) {
+            .h-custom {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- start header -->
+        <div th:replace="~{/shop/fragments::header}"></div>
+        <!-- end header -->
+
+        <!-- start body -->
+        <div class="body">
+            <!-- <div class="container">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <div class="login col-md-8 col-lg-6 col-xl-5 mt-5">
+                        <div class="login__title d-flex">
+                            <div class="wrapper active w-50 d-flex justify-content-center align-items-center px-5 py-3">
+                                <a href="">
+                                    Login
+                                </a>
+                            </div>
+                            <div class="wrapper w-50 d-flex justify-content-center align-items-center px-5 py-3">
+                                <a href="">
+                                    Signup
+                                </a>
+                            </div>
+                        </div>
+
+                        <form action="" method="get" class="login-form px-3- py-4">
+                            <div class="form-group mb-3">
+                                <div class="form-label">Username</div>
+                                <div class="form-error"></div>
+                                <input type="text" class="form-input w-100 px-3 py-2">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <div class="form-label">Password</div>
+                                <div class="form-error"></div>
+                                <input type="password" class="form-input w-100 px-3 py-2">
+                            </div>
+                        </form>
+
+                        <div class="login__button d-flex justify-content-center align-items-center">
+                            <input type="submit" class="login--btn px-4 py-2" value="Login">
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <section class="vh-100">
+                <div class="container-fluid h-custom">
+                    <div class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-md-9 col-lg-6 col-xl-5">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                                class="img-fluid" alt="Sample image">
+                        </div>
+                        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                            <form th:action="@{/do-login}" method="post">
+                                <div
+                                    class="d-flex flex-row align-items-center justify-content-center ">
+                                    <h2 class="mt-1 mb-2 pb-1">Sign in</h2>
+                                </div>
+                                <div th:if = "${param.logout}" class="alert alert-success text-center">
+                                    You have been logged out!
+                                </div>
+                                <div class="divider d-flex align-items-center my-4">
+                                    <p class="text-center fw-bold mx-3 mb-0"></p>
+                                </div>
+
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input type="email" id="form3Example3" class="form-control form-control-lg"
+                                        placeholder="Enter a valid email address" required name="username"/>
+                                    <label class="form-label" for="form3Example3">Email address</label>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-3">
+                                    <input type="password" id="form3Example4" class="form-control form-control-lg"
+                                        placeholder="Enter password" required name="password"/>
+                                    <label class="form-label" for="form3Example4">Password</label>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Checkbox -->
+                                    <div class="form-check mb-0">
+                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                            id="form2Example3" />
+                                        <label class="form-check-label" for="form2Example3">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    <a href="#!" class=" link-primary">Forgot password?</a>
+                                </div>
+
+                                <div class="text-center text-lg-start mt-4 pt-2">
+                                    <button type="submit" value="Log in" class="btn btn-primary btn-lg"
+                                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+                                    <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a th:href="@{/register}"
+                                            class="link-primary">Register</a></p>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- end body -->
+
+        <!-- start footer -->
+        <footer th:replace="~{/shop/fragments::footer}">
+            <!-- end footer -->
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+
+    <!-- Fontawsome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+</body>
+
+</html>

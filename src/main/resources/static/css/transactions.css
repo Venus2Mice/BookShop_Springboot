@@ -1,0 +1,105 @@
+.body__title {
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.body__list {
+
+}
+
+.body__list-item {
+    box-shadow: 0px 4px 16px #dadada;
+}
+
+.order__list-header {
+    /* background-color: #dadada; */
+    background-color: var(--text-primary-color);
+}
+
+.order__list-date {
+    /* color: var(--text-primary-color); */
+    color: var(--white-color);
+    font-weight: bold;
+}
+
+.order__list-status {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.completed {
+    color: var(--secondary-color);
+}
+
+.cancelled {
+    color: var(--price-color);
+}
+
+.pending {
+    color: var(--cart-color);
+}
+
+.order__list-body {
+    background-color: #f3f6fd;
+    background-color: #f4f4f4;
+    background-color: #f0faff;
+}
+
+.order__list-item {
+
+}
+
+.order__list-item:hover  {
+    background-color: #ffe2c3;
+    background-color: #c3e0ff;
+    cursor: pointer;
+}
+
+.order__item-img {
+    min-height: 72px;
+    max-height: 72px;
+    min-width: 72px;
+    max-height: 72px;
+    overflow: hidden;
+}
+
+.order__item-img img {
+    min-height: 72px;
+    max-height: 72px;
+    min-width: 72px;
+    max-width: 72px;
+    border: 2px solid var(--text-secondary-color);
+    object-fit: cover;
+}
+
+.order__item-details {
+    width: 100%;
+}
+
+.order__item-name {
+    color: var(--text-primary-color);
+    font-size: 20px;
+}
+
+.order__item-quantity {
+    font-weight: bold;
+    color: var(--text-primary-color);
+}
+
+.order__item-total {
+    min-width: 140px;
+    max-width: 140px;
+    font-size: 18px;
+    color: var(--text-primary-color);
+    font-weight: bold;
+}
+
+.order__list-footer {
+    background-color: #fff5e3;
+    background-color: var(--price-color);
+    font-size: 24px;
+    color: var(--price-color);
+    color: var(--white-color);
+    font-weight: bold;
+}
