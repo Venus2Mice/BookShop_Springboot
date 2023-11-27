@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const newPassword = document.getElementById('newPasswordInput').value;
         const confirmPassword = document.getElementById('confirmPasswordInput').value;
 
+        if(!checkPass(newPassword)){
+            displayModal('Mật khẩu cần chứa ít nhất 1 chữ cái, 1 số, 1 ký tự đặc biệt và dài ít nhất 6 ký tự.', false);
+            return;
+        }
+
         if (!oldPassword || !newPassword || !confirmPassword) {
             displayModal('Vui lòng điền đầy đủ thông tin.', false);
             return;
@@ -67,3 +72,29 @@ function displayModal(message, isSuccess) {
         $(modal).modal('hide');
     }, 3500); // Thay số 3000 bằng thời gian đóng modal (milliseconds)
 }
+
+function checkPass(password) {
+    // Biểu thức chính quy để kiểm tra mật khẩu
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+    return regex.test(password);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

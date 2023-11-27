@@ -14,6 +14,8 @@ import com.example.BookShop_Springboot.service.ShoppingCartService;
 import com.example.BookShop_Springboot.utils.DateFormatter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +38,20 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setOrderDate(DateFormatter.getCurrentDateFormatted());
         order.setCustomer(shoppingCart.getCustomer());
-        order.setTax(2);
+        order.setTax(10);
         order.setTotalPrice(shoppingCart.getTotalPrice());
         order.setAccept(false);
-        order.setPaymentMethod("Cash");
-        order.setOrderStatus("Pending");
+        order.setCancelByCustomer(false);
+        order.setPaymentMethod("Thanh toán khi nhận hàng");
+        order.setOrderStatus("Chờ xác nhận");
         order.setQuantity(shoppingCart.getTotalItems());
         List<OrderDetail> orderDetailList = new ArrayList<>();
         for (CartItem item : shoppingCart.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrder(order);
             orderDetail.setProduct(item.getProduct());
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setUnitPrice(item.getUnitPrice());
             detailRepository.save(orderDetail);
             orderDetailList.add(orderDetail);
         }
@@ -56,9 +61,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAll(String username) {
-        Customer customer = customerRepository.findByUsername(username);
+    public List<Order> findAll(String email) {
+        Customer customer = customerRepository.findByEmail(email);
         List<Order> orders = customer.getOrders();
+        Collections.sort(orders, Comparator.comparing(Order::getOrderDate).reversed());
         return orders;
     }
 
@@ -73,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id).orElse(null);
         order.setAccept(true);
         order.setDeliveryDate(DateFormatter.getCurrentDateFormatted());
+        order.setOrderStatus("Đang giao hàng");
         return orderRepository.save(order);
     }
 
@@ -113,6 +120,14 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return bestSellingProducts;
+    }
+
+    @Override
+    public void cancelOrderByCustomer(Long id) {
+        Order order = orderRepository.findById(id).orElse(null);
+        order.setCancelByCustomer(true);
+        order.setOrderStatus("Đã hủy");
+        orderRepository.save(order);
     }
 
 }

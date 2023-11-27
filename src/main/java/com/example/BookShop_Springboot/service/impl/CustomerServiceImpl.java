@@ -37,9 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto getCustomer(String username) {
+    public CustomerDto getCustomer(String email) {
         CustomerDto customerDto = new CustomerDto();
-        Customer customer = customerRepository.findByEmail(username);
+        Customer customer = customerRepository.findByEmail(email);
         customerDto.setUsername(customer.getUsername());
         customerDto.setEmail(customer.getEmail());
         customerDto.setPassword(customer.getPassword());

@@ -18,4 +18,6 @@ public interface OrderService {
     void cancelOrder(Long id);
     
     List<Product> getBestSellingProducts();
+
+    void cancelOrderByCustomer(Long id);
 }

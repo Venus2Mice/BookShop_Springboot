@@ -7,199 +7,92 @@
     <link rel="stylesheet" th:href="@{/css/transactions.css}">
 
 </head>
+
 <body>
     <div class="container-fluid">
         <!-- start header -->
         <div th:replace="~{/shop/fragments::header}"></div>
         <!-- end header -->
 
+        <div class="container vh-100" th:if="${size==0}">
+            <div class="text-center mt-5">
+                <h1>Lịch sử mua hàng</h1>
+                <p class="lead" th:text="${blank}">A complete project boilerplate built with Bootstrap</p>
+                <a th:href="@{/products/0}">Khám phá kho sách</a>
+            </div>
+        </div>
         <!-- start body -->
-        <div class="body">
+        <div class="body" th:unless="${size==0}">
             <div class="container">
                 <div class="row mt-5">
                     <div class="body__title py-4 text-center">
-                        <span>Order History</span>
+                        <span>Lịch sử mua hàng</span>
+                        <p class="lead my-3 text-dark">Bạn có <span th:text="${size}"></span> đơn hàng</p>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-center">
                     <div class="col-10">
-                        <ul class="body__list p-0">
+                        <ul class="body__list p-0" th:each="order:${orders}">
 
                             <li class="body__list-item mb-5">
-                                <div class="order__list-header cancelled d-flex justify-content-between px-3 py-3">
-                                    <div class="order__list-date">11/11/2023</div>
-                                    <div class="order__list-status">Cancelled</div>
+                                <button class="btn w-100 px-0 py-0" data-bs-toggle="collapse" type="button"
+                                    th:data-bs-target="'#collapse'+${order.id}" aria-expanded="false"
+                                    th:aria-controls="'collapse'+${order.id}">
+                                    <div class="order__list-header cancelled d-flex justify-content-between px-3 py-3">
+                                        <div class="order__list-date ">Tạo lúc: <span class="timeValue" th:text="${order.orderDate}"></span></div>
+                                        <div class="order__list-status text-white"
+                                            th:text="'Trạng thái: '+${order.orderStatus}">Cancelled
+                                        </div>
+                                    </div>
+                                </button>
+
+                                <div class="collapse show" th:id="'collapse'+${order.id}">
+                                    <div class="card card-body">
+                                        <ul class="order__list-body p-0" th:each="orderDetail:${order.orderDetailList}">
+                                            <li class="order__list-item ps-5 pe-3 py-3">
+                                                <a th:href="@{/product-detail/{id}(id=${orderDetail.product.id})}"
+                                                    class="d-flex">
+                                                    <div class="order__item-img me-3">
+                                                        <img th:src="'data:image/jpeg;base64,' + ${orderDetail.product.image}"
+                                                            alt=""
+                                                            class="img-fluid d-none d-md-block rounded mb-2 shadow fixed-size-image"
+                                                            style="width: 164px; height: 164px; object-fit: scale-down;">
+                                                    </div>
+
+                                                    <div class="order__item-details d-flex flex-column">
+                                                        <span class="order__item-name"
+                                                            th:text="${orderDetail.product.name}">Product's name</span>
+                                                        <span class="order__item-name">GIÁ: <span
+                                                                class="order__item-name product__price"
+                                                                th:text="${orderDetail.unitPrice}">43.000</span></span>
+                                                        <span class="order__item-quantity"
+                                                            th:text="'SL: '+${orderDetail.quantity}">Qt: 3</span>
+                                                    </div>
+
+                                                    <div class="order__item-total d-flex justify-content-end align-items-center product__price"
+                                                        th:text="${orderDetail.unitPrice*orderDetail.quantity}">
+                                                        12000 &#8363;</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="order__list-footer d-flex justify-content-between px-3 py-4 ">
+                                            <a th:if="${order.isAccept==false && order.isCancelByCustomer==false}"
+                                                th:href="@{/cancel-order-by-customer/{id}(id=${order.id})}" role="button"
+                                                class="btn btn-danger">Hủy đơn</a>
+                                            <div th:unless="${order.isAccept==false && order.isCancelByCustomer==false}"></div>
+                                            <div class="right">Tổng cộng: <span class="product__price"
+                                                    th:text="${order.totalPrice}"></span></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <ul class="order__list-body p-0">
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
 
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="order__list-footer px-3 py-4 text-end">
-                                    Total: 46000 &#8363;
-                                </div>
-                            </li>
-
-                            <li class="body__list-item mb-5">
-                                <div class="order__list-header completed d-flex justify-content-between px-3 py-3">
-                                    <div class="order__list-date">11/11/2023</div>
-                                    <div class="order__list-status">Completed</div>
-                                </div>
-                                <ul class="order__list-body p-0">
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="order__list-footer px-3 py-4 text-end">
-                                    Total: 46000 &#8363;
-                                </div>
-                            </li>
-
-                            <li class="body__list-item mb-5">
-                                <div class="order__list-header pending d-flex justify-content-between px-3 py-3">
-                                    <div class="order__list-date">11/11/2023</div>
-                                    <div class="order__list-status">Pending</div>
-                                </div>
-                                <ul class="order__list-body p-0">
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-
-                                    <li class="order__list-item ps-5 pe-3 py-3">
-                                        <a href="" class="d-flex">
-                                            <div class="order__item-img me-3">
-                                                <img src="/src/main/resources/assets/img/476UR-Hoshizora-Rin-Pure-可愛い贈り物たち-jBZU4G.png" alt="">
-                                            </div>
-    
-                                            <div class="order__item-details d-flex flex-column">
-                                                <span class="order__item-name">Product's name</span>
-                                                <span class="order__item-quantity">Qt: 3</span>
-                                            </div>
-    
-                                            <div class="order__item-total d-flex justify-content-end align-items-center">12000 &#8363;</div>
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div class="order__list-footer px-3 py-4 text-end">
-                                    Total: 46000 &#8363;
-                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
-              
+
                 <!-- page-item co class="disable" de an -->
                 <div class="row d-flex justify-content-center align-items-center">
                     <ul class="pagination p-0">
@@ -239,16 +132,24 @@
             </div>
         </div>
         <!-- end body -->
-    
+
         <!-- start footer -->
         <footer th:replace="~{/shop/fragments::footer}"></footer>
         <!-- end footer -->
     </div>
 
     <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Fontawsome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script src="/js/formatCurrency.js"></script>
+    <script src="/js/DateFormat.js"></script>
 </body>
+
 </html>

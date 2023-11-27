@@ -9,7 +9,7 @@ import com.example.BookShop_Springboot.model.CartItem;
 import com.example.BookShop_Springboot.model.ShoppingCart;
 
 public interface ShoppingCartService {
-    ShoppingCart addItemToCart(ProductDto productDto, int quantity, String username);
+    ShoppingCart addItemToCart(ProductDto productDto, int quantity, String email);
 
     ShoppingCart updateCart(ProductDto productDto, int quantity, String username);
 

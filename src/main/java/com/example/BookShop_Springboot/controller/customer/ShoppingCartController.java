@@ -73,8 +73,8 @@ public class ShoppingCartController {
         if (principal == null) {
             return "redirect:/login";
         } else {
-            String username = principal.getName();
-            ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, username);
+            String email = principal.getName();
+            ShoppingCart shoppingCart = cartService.addItemToCart(productDto, quantity, email);
             session.setAttribute("totalItems", shoppingCart.getTotalItems());
             model.addAttribute("shoppingCart", shoppingCart);
         }
@@ -86,13 +86,15 @@ public class ShoppingCartController {
     public String updateCart(@RequestParam("id") Long id,
             @RequestParam("quantity") int quantity,
             Model model,
-            Principal principal) {
+            Principal principal,
+            HttpSession session) {
         if (principal == null) {
             return loginPath;
         } else {
             ProductDto productDto = productService.getById(id);
             String username = principal.getName();
             ShoppingCart shoppingCart = cartService.updateCart(productDto, quantity, username);
+            session.setAttribute("totalItems", shoppingCart.getTotalItems());
             model.addAttribute("shoppingCart", shoppingCart);
 
             // Tạo một mảng chứa totalItems và totalPrice
@@ -114,15 +116,17 @@ public class ShoppingCartController {
     @ResponseBody
     public String deleteItem(@RequestParam("id") Long id,
             Model model,
-            Principal principal) {
+            Principal principal,
+            HttpSession session) {
         if (principal == null) {
             return loginPath;
         } else {
             ProductDto productDto = productService.getById(id);
             String username = principal.getName();
             ShoppingCart shoppingCart = cartService.removeItemFromCart(productDto, username);
+            session.setAttribute("totalItems", shoppingCart.getTotalItems());
             model.addAttribute("shoppingCart", shoppingCart);
-            
+
             // Tạo một mảng chứa totalItems và totalPrice
             int totalItems = shoppingCart.getTotalItems();
             double totalPrice = shoppingCart.getTotalPrice();

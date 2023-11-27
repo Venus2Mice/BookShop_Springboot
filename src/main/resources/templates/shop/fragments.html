@@ -79,7 +79,7 @@
                                     </li>
 
                                     <li class="user__option-item px-3 py-1">
-                                        <a href="transactions">Lịch sử mua hàng</a>
+                                        <a href="/order">Lịch sử mua hàng</a>
                                     </li>
 
                                     <li class="user__option-item px-3 py-1">
@@ -96,8 +96,8 @@
                         <li class="header__item cart">
                             <a href="/cart">
                                 <i class="fa-solid fa-cart-shopping"></i>
-                                <div th:if="${session.username != null}"
-                                    class="cart__quantity d-flex justify-content-center align-items-center"
+                                <div th:if="${session.username != null && session.totalItems!=null}"
+                                    class="cart__quantity d-flex justify-content-center align-items-center" 
                                     th:text="${session.totalItems}" id="headerTotalItems"></div>
                                 <span style="font-size: 1.2em;">Giỏ hàng</span>
                             </a>

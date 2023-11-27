@@ -54,7 +54,7 @@ public class CustomerController {
             CustomerDto customerUpdate = customerService.getCustomer(principal.getName());
             attributes.addFlashAttribute("success", "Update successfully!");
             model.addAttribute("customer", customerUpdate);
-            return "redirect:/profile";
+            return "redirect:/profile?success";
         }
     }
 

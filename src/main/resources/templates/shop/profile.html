@@ -50,6 +50,9 @@
 
                                 <!-- Edit UserInfo -->
                                 <div class="user__info-details col-8">
+                                    <div th:if="${param.success}" class="alert alert-success text-center">
+                                        Đã lưu thay đổi
+                                    </div>
                                     <!-- <form th:action="@{/update-profile}" method="POST" th:object="${customer}"> -->
                                     <div class="d-flex flex-column">
                                         <div class="info__item col-12 pb-3 px-3 d-flex flex-column">
@@ -78,6 +81,9 @@
                                             <label class="info__item-title pb-2">Địa chỉ: <span
                                                     th:text="${customer.address}"
                                                     class="text-secondary small"></span></label>
+                                            <div th:if="${param.edit}" class="alert alert-danger text-center">
+                                                Thêm địa chỉ để đặt hàng
+                                            </div>
                                             <input class="px-3 py-2" type="text" th:field="*{address}"
                                                 placeholder="Enter your address">
                                         </div>
@@ -166,7 +172,7 @@
     <!-- Jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script th:src="@{/js/ChangePassword.js}"></script>
+    <script th:src="@{/js/Profile.js}"></script>
 </body>
 
 </html>

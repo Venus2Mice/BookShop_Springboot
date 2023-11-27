@@ -34,8 +34,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 
     @Override
     @Transactional
-    public ShoppingCart addItemToCart(ProductDto productDto, int quantity, String username) {
-        Customer customer = customerService.findByEmail(username);
+    public ShoppingCart addItemToCart(ProductDto productDto, int quantity, String email) {
+        Customer customer = customerService.findByEmail(email);
         ShoppingCart shoppingCart = customer.getCart();
 
         if (shoppingCart == null) {
@@ -45,7 +45,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
         CartItem cartItem = find(cartItemList, productDto.getId());
         Product product = transfer(productDto);
 
-        double unitPrice = productDto.getSalePrice();
+        double unitPrice = productDto.getDiscountPrice();
 
         int itemQuantity = 0;
         if (cartItemList == null) {
