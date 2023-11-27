@@ -46,8 +46,14 @@
                                     class="d-flex flex-row align-items-center justify-content-center ">
                                     <h2 class="mt-1 mb-2 pb-1">ĐĂNG NHẬP</h2>
                                 </div>
+                                <div th:if = "${param.error}" class="alert alert-danger text-center">
+                                    Tên đăng nhập hoặc mật khẩu không hợp lệ
+                                </div>
                                 <div th:if = "${param.logout}" class="alert alert-success text-center">
-                                    You have been logged out!
+                                    Bạn đã đăng xuất khỏi tài khoản !
+                                </div>
+                                <div th:if = "${param.success}" class="alert alert-success text-center">
+                                    Bạn đã đăng kí tài khoản thành công !
                                 </div>
                                 <div class="divider d-flex align-items-center my-4">
                                     <p class="text-center fw-bold mx-3 mb-0"></p>

@@ -41,13 +41,13 @@
                                 class="img-fluid" alt="Sample image">
                         </div>
                         <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                            <div th:if="${errors}">
-                                <p class="alert alert-danger" th:text="${errors}"></p>
+                            <div th:if="${error}">
+                                <p class="alert alert-danger" th:text="${error}"></p>
                             </div>
                             <div th:if="${success}">
                                 <p class="alert alert-success" th:text="${success}"></p>
                             </div>
-                            <form th:action="@{/do-register}" th:object="${customerDto}" method="POST">
+                            <form th:action="@{/do-register}" th:object="${customerDto}" method="POST" id="registerForm">
                                 <div class="d-flex flex-row align-items-center justify-content-center ">
                                     <h2 class="mt-1 mb-2 pb-1">ĐĂNG KÍ TÀI KHOẢN</h2>
                                 </div>
@@ -60,7 +60,7 @@
                                         <label th:if="${!#fields.hasErrors('username')}" class="form-label" for="exampleFirstName">User
                                             name</label>
                                         <input type="text" class="form-control form-control-user" th:field="*{username}"
-                                            id="exampleFirstName" placeholder="Enter User Name">                                        
+                                            id="exampleFirstName" placeholder="Enter User Name" required>                                        
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('username')}"
                                             th:errors="*{username}"></div>
                                     </div>
@@ -69,7 +69,7 @@
                                         <label th:if="${!#fields.hasErrors('phone')}" class="form-label" for="exampleLastName">Phone
                                             number</label>
                                         <input type="text" th:field="*{phone}" class="form-control form-control-user"
-                                            id="exampleLastName" placeholder="Enter Phone Number">                                        
+                                            id="exampleLastName" placeholder="Enter Phone Number" required >                                        
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('phone')}"
                                             th:errors="*{phone}"></div>
                                     </div>
@@ -79,19 +79,19 @@
                                     <label th:if="${!#fields.hasErrors('email')}" class="form-label" for="form3Example3">Email
                                         address</label>
                                     <input type="email" id="form3Example3" class="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" th:field="*{email}" />                                    
+                                        placeholder="Enter a valid email address" th:field="*{email}" required>                                    
                                     <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}"
                                         th:errors="*{email}"></div>
                                 </div>
 
                                 <!-- Password input -->
                                 <div class="form-outline mb-3">
+                                    
                                     <label th:if="${!#fields.hasErrors('password')}" class="form-label"
                                         for="form3Example4">Password</label>
-                                    <input type="password" id="form3Example4" class="form-control form-control-lg"
-                                        placeholder="Enter password" th:field="*{password}" />                                    
-                                    <div class="alert alert-danger" th:if="${#fields.hasErrors('password')}"
-                                        th:errors="*{password}"></div>
+                                        <div class="alert alert-danger pass" style="display: none;"></div>
+                                    <input type="password" id="form3Example44" class="form-control form-control-lg"
+                                        placeholder="Enter password" th:field="*{password}" required>                                                                        
                                 </div>
 
                                 <!-- Password confirm input -->
@@ -99,7 +99,7 @@
                                     <label th:if="${!#fields.hasErrors('password')}" class="form-label" for="form3Example4">Confirm
                                         Password</label>
                                     <input type="password" id="form3Example4" class="form-control form-control-lg"
-                                        placeholder="Enter confirm password" th:field="*{confirmPassword}" />                                    
+                                        placeholder="Enter confirm password" th:field="*{confirmPassword}" required>                                    
                                 </div>
                                 <div class="divider d-flex align-items-center my-4">
                                     <p class="text-center fw-bold mx-3 mb-0"></p>
@@ -132,6 +132,7 @@
 
     <!-- Fontawsome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <script th:src="@{/js/CheckFormRegister.js}"></script>
 </body>
 
 </html>
