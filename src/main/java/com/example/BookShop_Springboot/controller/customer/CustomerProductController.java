@@ -38,9 +38,11 @@ public class CustomerProductController {
     @GetMapping("/products/{pageNo}")
     public String allProducts(@PathVariable("pageNo") int pageNo, Model model) {
         Page<ProductDto> products = productService.getAllProducts(pageNo);
+        List<Category> categories = categoryService.findAllByActivatedTrue();
         model.addAttribute("title", "Manage Products");
         model.addAttribute("size", products.getSize());
         model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", products.getTotalPages());
         return productsPath;
@@ -50,9 +52,11 @@ public class CustomerProductController {
     public String getByCategory(@PathVariable("pageNo") int pageNo, @RequestParam("name") String categoryName,
             Model model) {
         Page<ProductDto> products = productService.findAllByCategory(categoryName, pageNo);
+        List<Category> categories = categoryService.findAllByActivatedTrue();
         model.addAttribute("title", "Manage Products");
         model.addAttribute("size", products.getSize());
         model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", products.getTotalPages());
         return productsPath;

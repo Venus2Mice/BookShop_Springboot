@@ -1,0 +1,23 @@
+.text-truncate-container {
+    width: 100%;
+}
+
+.fixed-size-image {
+    height: 200px;
+    /* Chiều cao cố định */
+    object-fit: scale-down;
+    /* Đảm bảo ảnh không bị biến đổi tỷ lệ */
+}
+
+.text-truncate-container p {
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (max-width: 767.98px) {
+    .border-sm-start-none {
+        border-left: none !important;
+    }
+}

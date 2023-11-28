@@ -4,31 +4,7 @@
 <head>
     <th:block th:insert="~{/shop/fragments :: header-include}">
     </th:block>
-    <style>
-        .text-truncate-container {
-            width: 100%;
-        }
-
-        .fixed-size-image {
-            height: 200px;
-            /* Chiều cao cố định */
-            object-fit: scale-down;
-            /* Đảm bảo ảnh không bị biến đổi tỷ lệ */
-        }
-
-        .text-truncate-container p {
-            -webkit-line-clamp: 3;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        @media (max-width: 767.98px) {
-            .border-sm-start-none {
-                border-left: none !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/product_list.css}">
 </head>
 
 <body>
@@ -40,108 +16,113 @@
         <!-- end header -->
 
         <!-- start body -->
-        <section style="background-color: #eee;">
-            <div class="container py-4" th:each="product:${products}">
-                <div class="row justify-content-center mb-1 ">
-                    <div class="col-md-12 col-xl-10">
-                        <div class="card shadow-0 border rounded-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0 ">
-                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                                            <img th:src="'data:image/jpeg;base64,' + ${product.image}"
-                                                class="fixed-size-image w-75 img-fluid rounded mx-auto d-block max-width: 100% height: auto" />
-                                            <a href="#!">
-                                                <div class="hover-overlay">
-                                                    <div class="mask"
-                                                        style="background-color: rgba(253, 253, 253, 0.15);">
+        <section class="d-flex flex-row " style="background-color: #eee;">
+            <!-- Product side -->
+            <div class="product-side justify-content-center w-100">
+                <div class="container py-4" th:each="product:${products}">
+                    <div class="row justify-content-center mb-1 ">
+                        <div class="col-md-12 col-xl-10">
+                            <div class="card shadow-0 border rounded-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0 ">
+                                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                <img th:src="'data:image/jpeg;base64,' + ${product.image}"
+                                                    class="fixed-size-image w-75 img-fluid rounded mx-auto d-block max-width: 100% height: auto" />
+                                                <a href="#!">
+                                                    <div class="hover-overlay">
+                                                        <div class="mask"
+                                                            style="background-color: rgba(253, 253, 253, 0.15);">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-6">
-                                        <h4 th:text="${product.name}"></h4>
-                                        <div class="d-flex flex-row">
-                                            <div class="text-danger mb-1 me-2">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                                </a>
                                             </div>
-                                            <span>310</span>
                                         </div>
-                                        <div class="mb-2 mb-0 text-muted small">
-                                            <span th:text="'Tác giả :'+${product.authors}"></span>
-                                            <span class="text-primary"> • </span>
-                                        </div>
-                                        <div class="mb-2 text-muted small">
-                                            <span th:text="${product.publisher}"></span>
-                                            <span class="text-primary"> • </span>
-                                        </div>
-                                        <div class="mb-2 text-muted small">
-                                            <span th:text="'Thể loại :'+${product.category.name}"></span>
-                                            <span class="text-primary"> • </span>
-                                        </div>
-                                        <div class="text-truncate-container ">
-                                            <p class="text-truncate mb-4 mb-md-0" th:text="${product.description}">
-                                            </p>
-                                        </div>
+                                        <div class="col-md-6 col-lg-6 col-xl-6">
+                                            <h4 th:text="${product.name}"></h4>
+                                            <div class="d-flex flex-row">
+                                                <div class="text-danger mb-1 me-2">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <span>310</span>
+                                            </div>
+                                            <div class="mb-2 mb-0 text-muted small">
+                                                <span th:text="'Tác giả :'+${product.authors}"></span>
+                                                <span class="text-primary"> • </span>
+                                            </div>
+                                            <div class="mb-2 text-muted small">
+                                                <span th:text="${product.publisher}"></span>
+                                                <span class="text-primary"> • </span>
+                                            </div>
+                                            <div class="mb-2 text-muted small">
+                                                <span th:text="'Thể loại :'+${product.category.name}"></span>
+                                                <span class="text-primary"> • </span>
+                                            </div>
+                                            <div class="text-truncate-container ">
+                                                <p class="text-truncate mb-4 mb-md-0" th:text="${product.description}">
+                                                </p>
+                                            </div>
 
-                                    </div>
-                                    <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
-                                        <div class="d-flex flex-row align-items-center mb-1">
-                                            <h4 class="mb-1 me-1 product__price" th:text="${product.discountPrice}">
-                                            </h4>
-                                            <span class="text-danger"><s th:if="${ product.discount !=0}"
-                                                    class="product__price"
-                                                    th:text="${product.salePrice}">$20.99</s></span>
                                         </div>
-                                        <span th:if="${product.discount != 0.0}" class="text-danger">
-                                            <i class="fas fa-tag"></i>
-                                            Giảm giá đến:
-                                            <strong th:text="${product.discount}+'%'"
-                                                style="font-size: 1.2em;">50%</strong>
-                                        </span>
-                                        <h6 class="text-success" th:if="${product.currentQuantity!=0}">Miễn phí giao
-                                            hàng</h6>
-                                        <h5 class="text-danger font-italic" th:unless="${product.currentQuantity != 0}"
-                                            style="font-style: italic !important;">SOLD OUT</h5>
-                                        <div class="d-flex flex-column mt-4">
-                                            <a th:href="@{/product-detail/{id}(id=${product.id})}"
-                                                class="btn btn-primary btn-sm" type="button">Xem chi tiết</a>
-                                            <a href="#" th:if="${product.currentQuantity!=0}"
-                                                th:attr="onclick=|addToCart(event,'${product.id}')|"
-                                                class="btn btn-outline-primary btn-sm mt-2" type="button">
-                                                Thêm vào giỏ hàng
-                                            </a>
-                                            <a href="#" th:unless="${product.currentQuantity!=0}"
-                                                class="btn btn-outline-primary btn-sm mt-2" type="button">
-                                                Đã hết hàng
-                                            </a>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#successModal" style="display: none;">
-                                                Launch demo modal
-                                            </button>
+                                        <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                                            <div class="d-flex flex-row align-items-center mb-1">
+                                                <h4 class="mb-1 me-1 product__price" th:text="${product.discountPrice}">
+                                                </h4>
+                                                <span class="text-danger"><s th:if="${ product.discount !=0}"
+                                                        class="product__price"
+                                                        th:text="${product.salePrice}">$20.99</s></span>
+                                            </div>
+                                            <span th:if="${product.discount != 0.0}" class="text-danger">
+                                                <i class="fas fa-tag"></i>
+                                                Giảm giá đến:
+                                                <strong th:text="${product.discount}+'%'"
+                                                    style="font-size: 1.2em;">50%</strong>
+                                            </span>
+                                            <h6 class="text-success" th:if="${product.currentQuantity!=0}">Miễn phí giao
+                                                hàng</h6>
+                                            <h5 class="text-danger font-italic"
+                                                th:unless="${product.currentQuantity != 0}"
+                                                style="font-style: italic !important;">SOLD OUT</h5>
+                                            <div class="d-flex flex-column mt-4">
+                                                <a th:href="@{/product-detail/{id}(id=${product.id})}"
+                                                    class="btn btn-primary btn-sm" type="button">Xem chi tiết</a>
+                                                <a href="#" th:if="${product.currentQuantity!=0}"
+                                                    th:attr="onclick=|addToCart(event,'${product.id}')|"
+                                                    class="btn btn-outline-primary btn-sm mt-2" type="button">
+                                                    Thêm vào giỏ hàng
+                                                </a>
+                                                <a href="#" th:unless="${product.currentQuantity!=0}"
+                                                    class="btn btn-outline-primary btn-sm mt-2" type="button">
+                                                    Đã hết hàng
+                                                </a>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#successModal" style="display: none;">
+                                                    Launch demo modal
+                                                </button>
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="successModal" tabindex="-1"
-                                                aria-labelledby="successModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog ">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="successModalLabel">Thành vào giỏ
-                                                                hàng</h5>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Đã thêm thành công! <p th:text="${product.name}"></p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Đóng</button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="successModal" tabindex="-1"
+                                                    aria-labelledby="successModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog ">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="successModalLabel">Thành vào
+                                                                    giỏ
+                                                                    hàng</h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Đã thêm thành công! <p th:text="${product.name}"></p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Đóng</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -153,41 +134,45 @@
                         </div>
                     </div>
                 </div>
+                <!--Pagination  -->
+                <nav aria-label="..." class="pb-5" th:if="${param.name==null}">
+                    <ul class="justify-content-center pagination " style="width: auto;background-color: #eee;">
+                        <li th:if="${currentPage != 0}" class="page-item " style="width: auto;">
+                            <a th:href="@{'/products/' + ${currentPage - 1}}" class="page-link text-center">Previous</a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+                            <a th:href="@{'/products/' + ${i - 1}}" class="page-link text-center" href="#">
+                                <span th:text="${i}">
+                                </span></a>
+                        </li>
+                        <li th:if="${currentPage + 1 != totalPages}" class="page-item" style="width: auto;">
+                            <a th:href="@{'/products/' + ${currentPage + 1}}" class="page-link text-center" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav aria-label="..." class=" pb-5" th:if="${param.name!=null}">
+                    <ul class="justify-content-center pagination " style="width: auto;background-color: #eee;">
+                        <li th:if="${currentPage != 0}" class="page-item " style="width: auto;">
+                            <a th:href="@{'/products-category/' + ${currentPage - 1}(name=${param.name})}"
+                                class="page-link text-center">Previous</a>
+                        </li>
+                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+                            <a th:href="@{'/products-category/' + ${i - 1}(name=${param.name})}" class="page-link text-center"
+                                href="#">
+                                <span th:text="${i}">
+                                </span></a>
+                        </li>
+                        <li th:if="${currentPage + 1 != totalPages}" class="page-item" style="width: auto;">
+                            <a th:href="@{'/products-category/' + ${currentPage + 1}(name=${param.name})}"
+                                class="page-link text-center" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--Pagination  -->
             </div>
-            <!--Pagination  -->
-            <nav aria-label="..." class=" pb-5" th:if="${param.name==null}">
-                <ul class="justify-content-center pagination " style="width: auto;background-color: #eee;">
-                    <li th:if="${currentPage != 0}" class="page-item " style="width: auto;">
-                        <a th:href="@{'/products/' + ${currentPage - 1}}" class="page-link">Previous</a>
-                    </li>
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                        th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
-                        <a th:href="@{'/products/' + ${i - 1}}" class="page-link" href="#">
-                            <span th:text="${i}">
-                            </span></a>
-                    </li>
-                    <li th:if="${currentPage + 1 != totalPages}" class="page-item" style="width: auto;">
-                        <a th:href="@{'/products/' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-            <nav aria-label="..." class=" pb-5" th:if="${param.name!=null}">
-                <ul class="justify-content-center pagination " style="width: auto;background-color: #eee;">
-                    <li th:if="${currentPage != 0}" class="page-item " style="width: auto;">
-                        <a th:href="@{'/products-category/' + ${currentPage - 1}(name=${param.name})}" class="page-link">Previous</a>
-                    </li>
-                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                        th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
-                        <a th:href="@{'/products-category/' + ${i - 1}(name=${param.name})}" class="page-link" href="#">
-                            <span th:text="${i}">
-                            </span></a>
-                    </li>
-                    <li th:if="${currentPage + 1 != totalPages}" class="page-item" style="width: auto;">
-                        <a th:href="@{'/products-category/' + ${currentPage + 1}(name=${param.name})}" class="page-link" href="#">Next</a>
-                    </li>
-                </ul>
-            </nav>
-            <!--Pagination  -->
+
         </section>
         <!-- end body -->
 
