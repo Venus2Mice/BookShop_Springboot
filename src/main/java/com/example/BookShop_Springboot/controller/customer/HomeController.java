@@ -35,6 +35,10 @@ public class HomeController {
         model.addAttribute("page", "Home");
         model.addAttribute("categories", categoryService.findAllByActivatedTrue());
         model.addAttribute("products", productService.getAllProductsForCustomer(0));
+        model.addAttribute("productsByCategory1", productService.findAllByCategory("Tiểu Thuyết",0));
+        model.addAttribute("category1", "Tiểu Thuyết");
+        model.addAttribute("productsByCategory2", productService.findAllByCategory("Light Novel",0));
+        model.addAttribute("category2", "Light Novel");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (principal != null && authentication.getAuthorities().contains(new SimpleGrantedAuthority("CUSTOMER"))) {
             Customer customer = customerService.findByEmail(principal.getName());

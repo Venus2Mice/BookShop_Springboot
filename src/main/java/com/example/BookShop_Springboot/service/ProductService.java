@@ -53,5 +53,7 @@ public interface ProductService {
 
     Object findByName(String name);
 
+    Page<ProductDto> findAllByCategory(String categoryname, int pageNo);
+
 
 }

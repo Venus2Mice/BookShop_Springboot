@@ -247,4 +247,12 @@ public class ProductServiceImpl implements ProductService {
     public Object findByName(String name) {
         return productRepository.findByName(name);
     }
+
+    @Override
+    public Page<ProductDto> findAllByCategory(String categoryname, int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 8);
+        List<ProductDto> productDtoLists = this.findAllByCategory(categoryname);
+        Page<ProductDto> productDtoPage = toPage(productDtoLists, pageable);
+        return productDtoPage;
+    }
 }

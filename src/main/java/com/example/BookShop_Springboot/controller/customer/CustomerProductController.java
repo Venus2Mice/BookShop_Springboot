@@ -112,15 +112,10 @@ public class CustomerProductController {
 
     @GetMapping("/search-product")
     public String searchProduct(@RequestParam("keyword") String keyword, Model model) {
-        // List<CategoryDto> categoryDtos = categoryService.getCategoriesAndSize();
-        // List<ProductDto> productDtos = productService.searchProducts(keyword);
-        // List<ProductDto> listView = productService.listViewProducts();
-        // model.addAttribute("productViews", listView);
-        // model.addAttribute("categories", categoryDtos);
-        // model.addAttribute("title", "Search Products");
-        // model.addAttribute("page", "Result Search");
-        // model.addAttribute("products", productDtos);
-         model.addAttribute("currentPage", 1);
+        List<ProductDto> productDtos = productService.searchProducts(keyword);
+        model.addAttribute("title", "Search Products");
+        model.addAttribute("products", productDtos);
+        model.addAttribute("size", productDtos.size());
         
         return "/shop/search";
     }
