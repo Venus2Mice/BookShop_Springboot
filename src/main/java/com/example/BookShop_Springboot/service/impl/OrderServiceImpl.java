@@ -42,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalPrice(shoppingCart.getTotalPrice());
         order.setAccept(false);
         order.setCancelByCustomer(false);
+        order.setDeny(false);
         order.setPaymentMethod("Thanh toán khi nhận hàng");
         order.setOrderStatus("Chờ xác nhận");
         order.setQuantity(shoppingCart.getTotalItems());
@@ -79,13 +80,16 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(id).orElse(null);
         order.setAccept(true);
         order.setDeliveryDate(DateFormatter.getCurrentDateFormatted());
-        order.setOrderStatus("Đang giao hàng");
+        order.setOrderStatus("Đã giao hàng");
         return orderRepository.save(order);
     }
 
     @Override
-    public void cancelOrder(Long id) {
-        orderRepository.deleteById(id);
+    public void denyOrder(Long id) {
+        Order order = orderRepository.findById(id).orElse(null);
+        order.setDeny(true);
+        order.setOrderStatus("Đơn hàng bị từ chối");
+        orderRepository.save(order);
     }
 
     @Override
@@ -128,6 +132,18 @@ public class OrderServiceImpl implements OrderService {
         order.setCancelByCustomer(true);
         order.setOrderStatus("Đã hủy");
         orderRepository.save(order);
+    }
+
+    @Override
+    public void acceptOrderByCustomer(Long id) {
+        Order order = orderRepository.findById(id).orElse(null);
+        order.setOrderStatus("Đã thanh toán");
+        orderRepository.save(order);
+    }
+
+    @Override
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).orElse(null);
     }
 
 }

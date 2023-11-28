@@ -40,7 +40,8 @@
                                     th:data-bs-target="'#collapse'+${order.id}" aria-expanded="false"
                                     th:aria-controls="'collapse'+${order.id}">
                                     <div class="order__list-header cancelled d-flex justify-content-between px-3 py-3">
-                                        <div class="order__list-date ">Tạo lúc: <span class="timeValue" th:text="${order.orderDate}"></span></div>
+                                        <div class="order__list-date ">Tạo lúc: <span class="timeValue"
+                                                th:text="${order.orderDate}"></span></div>
                                         <div class="order__list-status text-white"
                                             th:text="'Trạng thái: '+${order.orderStatus}">Cancelled
                                         </div>
@@ -78,10 +79,15 @@
                                         </ul>
 
                                         <div class="order__list-footer d-flex justify-content-between px-3 py-4 ">
-                                            <a th:if="${order.isAccept==false && order.isCancelByCustomer==false}"
-                                                th:href="@{/cancel-order-by-customer/{id}(id=${order.id})}" role="button"
-                                                class="btn btn-danger">Hủy đơn</a>
-                                            <div th:unless="${order.isAccept==false && order.isCancelByCustomer==false}"></div>
+                                            <a th:if="${order.isAccept==false && order.isCancelByCustomer==false && order.isDeny == false}"
+                                                th:href="@{/cancel-order-by-customer/{id}(id=${order.id})}"
+                                                role="button" class="btn btn-danger">Hủy đơn</a>
+                                            <a th:if="${order.isAccept==true && order.orderStatus!='Đã thanh toán'}"
+                                                th:href="@{/accept-order-by-customer/{id}(id=${order.id})}"
+                                                role="button" class="btn btn-primary">Đã nhận hàng và thanh toán</a>
+                                            <div
+                                                th:unless="${order.isAccept==false && order.isCancelByCustomer==false && order.isDeny == false}">
+                                            </div>
                                             <div class="right">Tổng cộng: <span class="product__price"
                                                     th:text="${order.totalPrice}"></span></div>
                                         </div>

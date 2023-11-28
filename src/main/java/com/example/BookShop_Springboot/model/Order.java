@@ -27,6 +27,7 @@ public class Order {
     private String paymentMethod;
     private boolean isAccept;
     private boolean isCancelByCustomer;
+    private boolean isDeny;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")

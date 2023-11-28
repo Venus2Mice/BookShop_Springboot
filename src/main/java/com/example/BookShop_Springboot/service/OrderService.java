@@ -14,10 +14,14 @@ public interface OrderService {
     List<Order> findALlOrders();
 
     Order acceptOrder(Long id);
-
-    void cancelOrder(Long id);
     
     List<Product> getBestSellingProducts();
 
     void cancelOrderByCustomer(Long id);
+
+    void denyOrder(Long id);
+
+    void acceptOrderByCustomer(Long id);
+
+    Order getOrderById(Long id);
 }

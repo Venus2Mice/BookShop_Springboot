@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{/admin/fragments::header}"></head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!--Sidebar-->
+        <ul th:replace="~{/admin/fragments::sidebar}"></ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav th:replace="~{/admin/fragments::top-navbar}"></nav>
+                <!-- End of Topbar -->
+
+                <!-- start body -->
+                <section class="pt-5 pb-5">
+                    <div class="container">
+                        <div class="row w-100">
+                            <div class="col-lg-12 col-md-12 col-12">
+                                <h3 class="display-5 mb-2 text-center">Order Details</h3>
+                                <p class="mb-5 text-center" th:if="${shoppingCart!=null}">
+                                    <i class="text-info font-weight-bold" id="totalItems" th:text="${size}">3</i>
+                                    items in your
+                                    order
+                                </p>
+                                <table id="shoppingCart" class="table table-condensed table-responsive"
+                                    th:object="${orderDetails}">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:60%">Product</th>
+                                            <th style="width:12%">Price/1</th>
+                                            <th style="width:10%" class="text-center">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="orderDetail:${orderDetails}">
+                                            <td data-th="Product">
+                                                <div class="row">
+                                                    <div class="col-md-3 text-left">
+                                                        <img th:src="'data:image/jpeg;base64,' + ${orderDetail.product.image}"
+                                                            alt=""
+                                                            class="img-fluid d-none d-md-block rounded mb-2 shadow fixed-size-image"
+                                                            style="width: 164px; height: 164px; object-fit: scale-down;">
+                                                    </div>
+                                                    <div class="col-md-9 text-left mt-sm-2">
+                                                        <h4 th:text="${orderDetail.product.name}"></h4>
+                                                        <p class="font-weight-light"
+                                                            th:text="${orderDetail.product.category.name}"></p>
+                                                        <p class="font-weight-light"
+                                                            th:text="'Tác giả: '+${orderDetail.product.authors}"></p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="product__price" th:text="${orderDetail.unitPrice}">$49.00</td>
+                                            <td data-th="Quantity" class="text-center"
+                                                th:text="${orderDetail.quantity}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="float-right text-right">
+                                    <h4>Tổng cộng:</h4>
+                                    <h1 class="product__price text-danger" id="grandTotal"
+                                        th:text="${order.totalPrice}">
+                                        $99.00</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4 d-flex align-items-center">
+                            <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
+                                <a href="/admin/orders">
+                                    <i class="fas fa-arrow-left mr-2"></i>Return Order Page</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- end body -->
+
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{/admin/fragments::scroll}"></a>
+
+    <!--Add Categories Modal-->
+
+
+    <!--End-->
+
+    <!-- End -->
+    <!-- Bootstrap core JavaScript-->
+    <div th:replace="~{/admin/fragments::script}"></div>
+
+    <script th:src="@{/js/categories.js}"></script>
+    <script th:src="@{/js/formatCurrency.js}"></script>
+</body>
+
+</html>

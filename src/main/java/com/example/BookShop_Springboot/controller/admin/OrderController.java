@@ -34,8 +34,7 @@ public class OrderController {
         }
     }
 
-
-    @RequestMapping(value = "/accept-order", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/accept-order", method = { RequestMethod.PUT, RequestMethod.GET })
     public String acceptOrder(Long id, RedirectAttributes attributes, Principal principal) {
         if (principal == null) {
             return redirectLoginPath;
@@ -46,15 +45,29 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/cancel-order", method = {RequestMethod.PUT, RequestMethod.GET})
+    @RequestMapping(value = "/deny-order", method = { RequestMethod.PUT, RequestMethod.GET })
     public String cancelOrder(Long id, Principal principal) {
         if (principal == null) {
             return redirectLoginPath;
         } else {
-            orderService.cancelOrder(id);
+            orderService.denyOrder(id);
             return redirectOrdersPath;
         }
     }
 
+    @RequestMapping(value = "/order-detail", method = { RequestMethod.GET })
+    public String orderDetail(Long id, Principal principal, Model model) {
+        if (principal == null) {
+            return redirectLoginPath;
+        } else {
+            Order order = orderService.getOrderById(id);
+            if (order == null)
+                return redirectOrdersPath;
+            model.addAttribute("order", order);
+            model.addAttribute("orderDetails", order.getOrderDetailList());
+            model.addAttribute("size", order.getOrderDetailList().size());
+            return "/admin/order-detail";
+        }
+    }
 
 }
