@@ -46,6 +46,18 @@ public class CustomerProductController {
         return productsPath;
     }
 
+    @GetMapping("/products-category/{pageNo}")
+    public String getByCategory(@PathVariable("pageNo") int pageNo, @RequestParam("name") String categoryName,
+            Model model) {
+        Page<ProductDto> products = productService.findAllByCategory(categoryName, pageNo);
+        model.addAttribute("title", "Manage Products");
+        model.addAttribute("size", products.getSize());
+        model.addAttribute("products", products);
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return productsPath;
+    }
+
     @GetMapping("/product-detail/{id}")
     public String details(@PathVariable("id") Long id, Model model) {
         ProductDto product = productService.getById(id);
@@ -60,15 +72,15 @@ public class CustomerProductController {
 
     // @GetMapping("/shop-detail")
     // public String shopDetail(Model model) {
-    //     List<CategoryDto> categories = categoryService.getCategoriesAndSize();
-    //     model.addAttribute("categories", categories);
-    //     List<ProductDto> products = productService.randomProduct();
-    //     List<ProductDto> listView = productService.listViewProducts();
-    //     model.addAttribute("productViews", listView);
-    //     model.addAttribute("title", "Shop Detail");
-    //     model.addAttribute("page", "Shop Detail");
-    //     model.addAttribute("products", products);
-    //     return "shop-detail";
+    // List<CategoryDto> categories = categoryService.getCategoriesAndSize();
+    // model.addAttribute("categories", categories);
+    // List<ProductDto> products = productService.randomProduct();
+    // List<ProductDto> listView = productService.listViewProducts();
+    // model.addAttribute("productViews", listView);
+    // model.addAttribute("title", "Shop Detail");
+    // model.addAttribute("page", "Shop Detail");
+    // model.addAttribute("products", products);
+    // return "shop-detail";
     // }
 
     @GetMapping("/high-price")
@@ -116,7 +128,7 @@ public class CustomerProductController {
         model.addAttribute("title", "Search Products");
         model.addAttribute("products", productDtos);
         model.addAttribute("size", productDtos.size());
-        
+
         return "/shop/search";
     }
 }

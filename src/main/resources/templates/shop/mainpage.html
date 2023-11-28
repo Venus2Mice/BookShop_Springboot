@@ -24,7 +24,7 @@
 
                             <ul class="catagory__list p-0">
                                 <li class="catagory__item py-2 px-4" th:each="category : ${categories}">
-                                    <a href="" class="d-flex align-items-center">
+                                    <a th:href="@{/products-category/0(name=${category.name})}" class="d-flex align-items-center">
                                         <div class="catagory__item-icon me-3">
                                             <i class="fa-solid fa-book"></i>
                                         </div>
@@ -133,7 +133,7 @@
 
                         <div class="body__more row d-flex justify-content-center align-items-center py-3">
                             <div class="btn--wrapper">
-                                <a href="/products/0">
+                                <a th:href="@{/products-category/0(name=${category1})}">
                                     <button class="body__more--btn px-5 py-2">Xem thêm</button>
                                 </a>
                             </div>
@@ -175,7 +175,7 @@
 
                         <div class="body__more row d-flex justify-content-center align-items-center py-3">
                             <div class="btn--wrapper">
-                                <a href="/products/0">
+                                <a th:href="@{/products-category/0(name=${category2})}">
                                     <button class="body__more--btn px-5 py-2">Xem thêm</button>
                                 </a>
                             </div>
