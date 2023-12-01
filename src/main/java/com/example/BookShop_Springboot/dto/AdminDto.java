@@ -1,5 +1,7 @@
 package com.example.BookShop_Springboot.dto;
 
+import com.example.BookShop_Springboot.model.Role;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -26,4 +28,5 @@ public class AdminDto {
     private String password;
 
     private String repeatPassword;
+    private Role role;
 }
