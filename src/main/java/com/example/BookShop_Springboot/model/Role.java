@@ -18,6 +18,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
@@ -28,20 +29,25 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id")
+    @ToString.Exclude
     private long id;
 
     @Size(min = 0, max = 50, message = "name must be between than 0 to 50 letters")
     @Column(name = "name")
+    @ToString.Exclude
     private String name;
 
     @Size(min = 0, max = 50, message = "description must be between than 0 to 50 letters")
     @Column(name = "description")
+    @ToString.Exclude
     private String description;
 
     @Column(name = "status")
+    @ToString.Exclude
     private boolean status;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ToString.Exclude
     @JoinTable(
         name = "roles_permissions", 
         joinColumns = {
@@ -54,5 +60,6 @@ public class Role {
     private Collection<Permission> permissions;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private Collection<Admin> admins;
 }
