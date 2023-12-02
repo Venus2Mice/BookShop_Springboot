@@ -14,7 +14,7 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
 	@Query (value = "SELECT * FROM users u WHERE u.username = ?1", nativeQuery = true)
     Admin findByUsername(String username);
     
-    @Query(value = "SELECT * FROM users u WHERE u.username LIKE %?1%", nativeQuery = true)
+	@Query(value = "SELECT u FROM Admin u WHERE u.username LIKE CONCAT('%', :username, '%')")
     List<Admin> findLikeUsername(String username);
     
     @Query(value = "SELECT * FROM users u INNER JOIN roles r on u.fk_user_role = r.role_id WHERE r.name = %1", nativeQuery = true)
