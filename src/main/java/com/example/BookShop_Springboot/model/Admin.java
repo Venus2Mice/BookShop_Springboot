@@ -56,7 +56,6 @@ public class Admin {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_user_role", referencedColumnName = "role_id")
-    @ToString.Exclude
     private Role role;
 
     @OneToMany(mappedBy = "adminCreate", cascade = CascadeType.ALL)

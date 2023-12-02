@@ -43,11 +43,9 @@ public class Role {
     private String description;
 
     @Column(name = "status")
-    @ToString.Exclude
     private boolean status;
     
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @ToString.Exclude
     @JoinTable(
         name = "roles_permissions", 
         joinColumns = {
@@ -57,6 +55,7 @@ public class Role {
             @JoinColumn(name = "permission_id" , referencedColumnName = "permission_id")
     }
     )
+    @ToString.Exclude
     private Collection<Permission> permissions;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
