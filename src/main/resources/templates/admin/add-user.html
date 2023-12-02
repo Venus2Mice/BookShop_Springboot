@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{/admin/fragments::header}">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul th:replace="~{/admin/fragments::sidebar}">
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav th:replace="~{/admin/fragments::top-navbar}">
+                </nav>
+                <!-- End of Topbar -->
+
+                
+                <div class="m-md-4">
+                    <button type="button" class="btn btn-success">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z">
+                            </path>
+                        </svg>
+                        <a th:href="@{/admin/users/0}" style="text-decoration: none; color: white;">QUAY LẠI</a>
+                    </button>
+                </div>
+            
+
+                <!-- Begin Page Content -->
+                <div class="m-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <legend>UPDATE USER</legend>
+                            <form class="form-horizontal" th:action="@{/admin/add-user}" method="post" th:object="${adminDto}" enctype="multipart/form-data">
+                                <fieldset>
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="form-group-row">
+                                                <label class="col-md control-label" for="product_name">USER NAME</label>
+                                                <div class="col-sm-9">
+                                                    <input id="product_name" th:field="*{username}" name="product_name" class="form-control input-md" required="" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group-row">
+                                                <label class="col-md control-label" for="product_email">EMAIL</label>
+                                                <div class="col-sm-9">
+                                                    <input id="product_email" th:field="*{email}" name="product_email" class="form-control input-md"
+                                                    required="" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                        
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <div class="form-group-row">
+                                                <label class="col-md control-label" for="product_categories">USER ROLE</label>
+                                                <div class="col-sm-9">
+                                                    <select id="product_categories" th:field="*{role}" class="form-control">
+                                                        <option th:value="null" disabled>-SELECT-</option>
+                                                        <option th:each="item : ${roles}" th:value="${item.roleId}" th:text="${item.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-md control-label" for="available_quantity">PHONE</label>
+                                                <div class="col-sm-9">
+                                                    <input id="available_quantity" th:field="*{phone}" name="available_quantity" class="form-control input-md" required="" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="row mb-4">
+                                    	<div class="col-md">
+	                                        <div class="form-group">
+	                                            <label class="col-md control-label" for="price">ADDRESS</label>
+	                                            <div class="col-md">
+	                                                <input id="price" name="price" th:field="*{address}" class="form-control input-md" required="" type="text">
+	                                            </div>
+	                                        </div>
+                                        </div>
+                                    </div>
+                
+                                    <div class="row mb-4">
+                                        <div class="col text-center">
+                                            <button type="submit" class="btn btn-primary col-md-2">ADD</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+
+
+            <!-- Footer -->
+            <footer th:replace="~{/admin/fragments::footer}">
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+
+    <!-- Scroll to Top Button-->
+    <a th:replace="~{/admin/fragments::scroll}">
+    </a>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <div th:replace="~{/admin/fragments::script}"></div>
+
+</body>
+
+</html>
