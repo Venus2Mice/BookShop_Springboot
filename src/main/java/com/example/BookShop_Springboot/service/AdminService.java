@@ -13,12 +13,15 @@ public interface AdminService {
 	Page<AdminDto> searchByUserName(int pageNo, String keyword);
 	Page<AdminDto> searhByRole(int pageNo, String keyword);
 	
-    AdminDto findByEmail(String email);
+    Admin findByEmail(String email);
     AdminDto findByUserName(String username);
     
     Admin save(AdminDto adminDto);
     Admin update(AdminDto adminDto);
     Admin updateRole(RoleDto roleDto, AdminDto adminDto);
+    
+    void enableByUsername(String username);
+    void disableByUsername(String username);
     
 	List<AdminDto> transferData(List<Admin> list);
 	AdminDto transferData(Admin model);
