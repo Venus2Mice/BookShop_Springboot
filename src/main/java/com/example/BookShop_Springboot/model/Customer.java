@@ -56,6 +56,7 @@ public class Customer {
     private ShoppingCart cart;
 
     public Customer() {
+        this.status = true;
         this.cart = new ShoppingCart();
         this.orders = new ArrayList<>();
     }

@@ -119,7 +119,7 @@ function removeItem(e, id) {
     setTimeout(function () {
         const teToRemove = document.getElementById(id);
         teToRemove.remove();
-    }, 3000);
+    }, 2000);
 }
 
 const closeModalBtn = document.getElementById('closeModalBtn');
@@ -138,3 +138,9 @@ function showModal(Message) {
         $(successModal).modal('hide');
     }, 3000);
 }
+
+const phoneNumber = document.getElementById('phoneNumber');
+phoneNumber.addEventListener('input', () => {
+    // Xóa mọi ký tự không phải số khỏi giá trị của input
+    phoneNumber.value = phoneNumber.value.replace(/\D/g, '');
+});

@@ -1,5 +1,7 @@
 package com.example.BookShop_Springboot.service;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.BookShop_Springboot.dto.CustomerDto;
@@ -10,6 +12,8 @@ public interface CustomerService {
 
     Customer findByUsername(String username);
 
+    List<Customer> findALl();
+
     Customer update(CustomerDto customerDto);
 
     Customer changePass(CustomerDto customerDto);
@@ -19,4 +23,8 @@ public interface CustomerService {
     Customer findByEmail(String email);
 
     void update(CustomerDto customerDto, MultipartFile img_avt);
+
+    void disableById(Long id);
+
+    void enableById(Long id);
 }

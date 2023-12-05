@@ -38,7 +38,6 @@
                                 <th class="quantity-box">Total Price</th>
                                 <th class="total-pr">Payment Method</th>
                                 <th>Action</th>
-                                <th>Deny</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>
@@ -67,23 +66,13 @@
                                     <span></span>[(${order.paymentMethod})]</span>
                                 </td>
                                 <td>
-                                    <a th:if="${order.accept == false && order.isCancelByCustomer == false && order.isDeny == false}"
+                                    <a th:if="${order.accept == false && order.isCancelByCustomer == false}"
                                         th:href="@{/admin/accept-order(id = ${order.id})}"
                                         class=" btn btn-primary">Accept</a>
                                     <a th:if="${order.accept} == true" class="btn btn-secondary" disabled>Accepted</a>
                                     <a th:if="${order.isCancelByCustomer} == true" class="btn btn-secondary"
-                                        disabled>Cancel</a>
-                                    <a th:if="${order.isDeny} == true" class="btn btn-secondary" disabled>Accept</a>
-                                </td>
-                                <td>
-                                    <a th:href="@{/admin/deny-order(id = ${order.id})}"
-                                        th:if="${order.isCancelByCustomer == false && order.isDeny == false && order.isAccept == false} "
-                                        class="btn btn-danger">Deny</a>
-                                    <a th:if="${order.isDeny} == true" class="btn btn-secondary" disabled>Denied</a>
-                                    <a th:if="${order.isCancelByCustomer} == true" class="btn btn-secondary"
-                                        disabled>Cancel</a>
-                                    <a th:if="${order.accept} == true" class="btn btn-secondary" disabled>Deny</a>
-                                </td>
+                                        disabled>Cancel</a>                                    
+                                </td>                               
                                 <td>
                                     <a th:href="@{/admin/order-detail(id=${order.id})}"
                                         class="btn btn-success">Detail</a>

@@ -7,21 +7,19 @@ import com.example.BookShop_Springboot.model.Product;
 import java.util.List;
 
 public interface OrderService {
-    Order save(ShoppingCart shoppingCart);
+    Order save(ShoppingCart shoppingCart, String address, String phone, String paymentMethod);
 
     List<Order> findAll(String username);
 
     List<Order> findALlOrders();
 
-    Order acceptOrder(Long id);
+    Order acceptOrder(String id);
     
     List<Product> getBestSellingProducts();
 
-    void cancelOrderByCustomer(Long id);
+    void cancelOrderByCustomer(String id);
 
-    void denyOrder(Long id);
+    void acceptOrderByCustomer(String id);
 
-    void acceptOrderByCustomer(Long id);
-
-    Order getOrderById(Long id);
+    Order getOrderById(String id);
 }

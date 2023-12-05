@@ -90,7 +90,7 @@
                                                 <a th:href="@{/product-detail/{id}(id=${product.id})}"
                                                     class="btn btn-primary btn-sm" type="button">Xem chi tiết</a>
                                                 <a href="#" th:if="${product.currentQuantity!=0}"
-                                                    th:attr="onclick=|addToCart(event,'${product.id}')|"
+                                                    th:attr="onclick=|addToCart(event,'${product.id}','${product.name}')|"
                                                     class="btn btn-outline-primary btn-sm mt-2" type="button">
                                                     Thêm vào giỏ hàng
                                                 </a>
@@ -110,14 +110,16 @@
                                                     <div class="modal-dialog ">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="successModalLabel">Thành vào
+                                                                <h5 class="modal-title" id="successModalLabel">Thêm vào
                                                                     giỏ
                                                                     hàng</h5>
                                                                 <button type="button" class="btn-close"
                                                                     data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
+                                                            <!-- <div class="modal-body">
+                                                                Đã thêm thành công! <p th:text="${product.name}"></p> -->
                                                             <div class="modal-body">
-                                                                Đã thêm thành công! <p th:text="${product.name}"></p>
+                                                               Đã thêm thành công! 
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary"

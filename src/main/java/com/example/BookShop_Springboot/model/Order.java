@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,9 +16,8 @@ import java.util.List;
 @Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private Long id;
+    @Column(name = "order_id", length = 16, unique = true)
+    private String id;
     private Date orderDate;
     private Date deliveryDate;
     private String orderStatus;
@@ -27,13 +27,28 @@ public class Order {
     private String paymentMethod;
     private boolean isAccept;
     private boolean isCancelByCustomer;
-    private boolean isDeny;
+    private String address;
+    private String phoneNumber;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     private Customer customer;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderDetail> orderDetailList;
+
+    @PrePersist
+    public void generateUniqueOrderId() {
+        // Tạo UUID
+        UUID uuid = UUID.randomUUID();
+        // Chuyển UUID thành chuỗi và loại bỏ dấu "-"
+        String orderIdString = uuid.toString().replace("-", "");
+        // Chuyển chuỗi thành chữ hoa (nếu là chữ cái)
+        this.id = orderIdString.toUpperCase();
+        // Cắt lấy 16 ký tự đầu
+        if (this.id.length() > 16) {
+            this.id = this.id.substring(0, 16);
+        }
+    }
 
     @Override
     public String toString() {

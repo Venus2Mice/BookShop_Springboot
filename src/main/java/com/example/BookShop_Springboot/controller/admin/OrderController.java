@@ -35,7 +35,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/accept-order", method = { RequestMethod.PUT, RequestMethod.GET })
-    public String acceptOrder(Long id, RedirectAttributes attributes, Principal principal) {
+    public String acceptOrder(String id, RedirectAttributes attributes, Principal principal) {
         if (principal == null) {
             return redirectLoginPath;
         } else {
@@ -45,18 +45,8 @@ public class OrderController {
         }
     }
 
-    @RequestMapping(value = "/deny-order", method = { RequestMethod.PUT, RequestMethod.GET })
-    public String cancelOrder(Long id, Principal principal) {
-        if (principal == null) {
-            return redirectLoginPath;
-        } else {
-            orderService.denyOrder(id);
-            return redirectOrdersPath;
-        }
-    }
-
     @RequestMapping(value = "/order-detail", method = { RequestMethod.GET })
-    public String orderDetail(Long id, Principal principal, Model model) {
+    public String orderDetail(String id, Principal principal, Model model) {
         if (principal == null) {
             return redirectLoginPath;
         } else {
