@@ -92,7 +92,7 @@ public class SupplierController {
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
             supplierService.deleteById(id);
-            redirectAttributes.addFlashAttribute("success", "Deleted successfully!");
+            redirectAttributes.addFlashAttribute("success", "Disable successfully!");
         } catch (DataIntegrityViolationException e1) {
             e1.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Duplicate name of supplier, please check again!");

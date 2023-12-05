@@ -9,6 +9,7 @@ import com.example.BookShop_Springboot.utils.ImageUpload;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,6 +83,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> findALl() {
+        return customerRepository.findAll();
+    }
+
+    @Override
     public void update(CustomerDto customerDto, MultipartFile img_avt) {
         try {
             Customer customer = customerRepository.findByEmail(customerDto.getEmail());
@@ -112,6 +118,20 @@ public class CustomerServiceImpl implements CustomerService {
             e.printStackTrace();
 
         }
+    }
+
+        @Override
+    public void disableById(Long id) {
+        Customer customer = customerRepository.getReferenceById(id);
+        customer.setStatus(false);
+        customerRepository.save(customer);
+    }
+
+    @Override
+    public void enableById(Long id) {
+        Customer customer = customerRepository.getReferenceById(id);
+        customer.setStatus(true);
+        customerRepository.save(customer);
     }
 
 }

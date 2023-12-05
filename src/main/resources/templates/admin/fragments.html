@@ -32,7 +32,7 @@
   <ul th:fragment="sidebar" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/admin/index}">
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
@@ -72,6 +72,7 @@
           <a class="collapse-item" href="products.html" th:href="@{/admin/supplier}">Manage Supplier</a>
           <a class="collapse-item" href="products.html" th:href="@{/admin/receipts/0}">Manage Receipt</a>
           <a class="collapse-item" th:href="@{/admin/orders}">Manage Orders</a>
+          <a class="collapse-item" th:href="@{/admin/customer}">Manage Customer</a>
         </div>
       </div>
     </li>
