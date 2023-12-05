@@ -1,4 +1,7 @@
 function formatDate(inputString) {
+    if(inputString === 0 || !inputString){
+        return;
+    }
     let dateObj = new Date(inputString);
 
     // Lấy thông tin ngày, tháng, năm
@@ -12,7 +15,7 @@ function formatDate(inputString) {
     let second = dateObj.getSeconds().toString().padStart(2, '0');
 
     // Tạo chuỗi định dạng theo yêu cầu
-    let formattedDate = `${year}/${month}/${day} ${hour}h:${minute}p:${second}s`;
+    let formattedDate = `${year}/${month}/${day} ${hour}h:${minute}`;
 
     return formattedDate;
 }

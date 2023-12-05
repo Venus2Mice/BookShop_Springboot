@@ -1,4 +1,4 @@
-function addToCart(e, id) {
+function addToCart(e, id,message) {
     e.preventDefault();
     var elementInput = document.getElementById('quantityInput');
     if (elementInput !== null) {
@@ -27,6 +27,8 @@ function addToCart(e, id) {
                 } else {
                     // Hiển thị modal khi không phải trang login
                     var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    var errorModalBody = document.querySelector('.modal-body');
+                    errorModalBody.textContent = message;
                     successModal.show();
                     var headerTotalItems = document.getElementById('headerTotalItems');
                     headerTotalItems.textContent = parseInt(headerTotalItems.textContent) + parseInt(quantity);
