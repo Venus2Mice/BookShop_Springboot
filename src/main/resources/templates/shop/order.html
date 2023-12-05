@@ -56,12 +56,12 @@
                                         th:data-bs-target="'#collapse'+${order.id}" aria-expanded="false"
                                         th:aria-controls="'collapse'+${order.id}">Chi tiết đơn</button>
 
-                                        <a th:if="${order.isAccept==false && order.isCancelByCustomer==false && order.isDeny == false}"
+                                        <a th:if="${order.isAccept==false && order.isCancelByCustomer==false}"
                                         th:href="@{/cancel-order-by-customer/{id}(id=${order.id})}"
                                         role="button" class="btn btn-danger">Hủy đơn</a>
-                                        <a th:if="${order.isAccept==true && order.orderStatus!='Đã thanh toán'}"
+                                        <a th:if="${order.isAccept==true && order.orderStatus!='Đã nhận hàng'}"
                                             th:href="@{/accept-order-by-customer/{id}(id=${order.id})}"
-                                            role="button" class="btn btn-primary">Đã nhận hàng và thanh toán</a>
+                                            role="button" class="btn btn-primary">Đã nhận hàng</a>
                                     </div>
                                 </div>
 

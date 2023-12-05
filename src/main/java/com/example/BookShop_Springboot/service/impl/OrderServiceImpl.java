@@ -42,7 +42,6 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalPrice(shoppingCart.getTotalPrice());
         order.setAccept(false);
         order.setCancelByCustomer(false);
-        order.setDeny(false);
         order.setPaymentMethod(paymentMethod);
         order.setOrderStatus("Chờ xác nhận");
         order.setQuantity(shoppingCart.getTotalItems());
@@ -73,25 +72,19 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findALlOrders() {
-        return orderRepository.findAll();
+        List<Order> orders = orderRepository.findAll();
+        Collections.sort(orders, Comparator.comparing(Order::getOrderDate).reversed());
+        return orders;
     }
 
     @Override
-    public Order acceptOrder(Long id) {
+    public Order acceptOrder(String id) {
         // Order order = orderRepository.getById(id);
         Order order = orderRepository.findById(id).orElse(null);
         order.setAccept(true);
         order.setDeliveryDate(DateFormatter.getCurrentDateFormatted());
         order.setOrderStatus("Đã giao hàng");
         return orderRepository.save(order);
-    }
-
-    @Override
-    public void denyOrder(Long id) {
-        Order order = orderRepository.findById(id).orElse(null);
-        order.setDeny(true);
-        order.setOrderStatus("Đơn hàng bị từ chối");
-        orderRepository.save(order);
     }
 
     @Override
@@ -129,7 +122,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void cancelOrderByCustomer(Long id) {
+    public void cancelOrderByCustomer(String id) {
         Order order = orderRepository.findById(id).orElse(null);
         order.setCancelByCustomer(true);
         order.setOrderStatus("Đã hủy");
@@ -137,14 +130,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void acceptOrderByCustomer(Long id) {
+    public void acceptOrderByCustomer(String id) {
         Order order = orderRepository.findById(id).orElse(null);
-        order.setOrderStatus("Đã thanh toán");
+        order.setOrderStatus("Đã nhận hàng");
         orderRepository.save(order);
     }
 
     @Override
-    public Order getOrderById(Long id) {
+    public Order getOrderById(String id) {
         return orderRepository.findById(id).orElse(null);
     }
 

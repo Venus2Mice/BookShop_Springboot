@@ -27,7 +27,6 @@ public class Order {
     private String paymentMethod;
     private boolean isAccept;
     private boolean isCancelByCustomer;
-    private boolean isDeny;
     private String address;
     private String phoneNumber;
 

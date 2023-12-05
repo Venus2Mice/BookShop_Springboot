@@ -63,14 +63,14 @@ public class CustomerOrderController {
     }
 
     @RequestMapping(value = "/cancel-order-by-customer/{id}", method = { RequestMethod.PUT, RequestMethod.GET })
-    public String cancelOrderByCus(@PathVariable("id") Long id, RedirectAttributes attributes) {
+    public String cancelOrderByCus(@PathVariable("id") String id, RedirectAttributes attributes) {
         orderService.cancelOrderByCustomer(id);
         attributes.addFlashAttribute("success", "Cancel order successfully!");
         return "redirect:/order";
     }
 
     @RequestMapping(value = "/accept-order-by-customer/{id}", method = { RequestMethod.PUT, RequestMethod.GET })
-    public String acceptOrderByCus(@PathVariable("id") Long id, RedirectAttributes attributes) {
+    public String acceptOrderByCus(@PathVariable("id") String id, RedirectAttributes attributes) {
         orderService.acceptOrderByCustomer(id);
         attributes.addFlashAttribute("success", "Accept order successfully!");
         return "redirect:/order";

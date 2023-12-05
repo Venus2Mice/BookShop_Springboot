@@ -13,15 +13,13 @@ public interface OrderService {
 
     List<Order> findALlOrders();
 
-    Order acceptOrder(Long id);
+    Order acceptOrder(String id);
     
     List<Product> getBestSellingProducts();
 
-    void cancelOrderByCustomer(Long id);
+    void cancelOrderByCustomer(String id);
 
-    void denyOrder(Long id);
+    void acceptOrderByCustomer(String id);
 
-    void acceptOrderByCustomer(Long id);
-
-    Order getOrderById(Long id);
+    Order getOrderById(String id);
 }
