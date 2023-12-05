@@ -68,7 +68,7 @@
                                                     th:text="${customer.phone}"
                                                     class="text-secondary small"></span></label>
                                             <input class="px-3 py-2" type="tel" th:field="*{phone}"
-                                                placeholder="Enter your new phone number" id="phoneNumber">
+                                                placeholder="Enter your new phone number" id="phoneNumber" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits">
                                         </div>
 
                                         <div class="info__item col-12 pb-3 px-3 d-flex flex-column">
