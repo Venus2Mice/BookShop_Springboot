@@ -34,7 +34,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order save(ShoppingCart shoppingCart) {
+    public Order save(ShoppingCart shoppingCart, String address, String phone, String paymentMethod) {
         Order order = new Order();
         order.setOrderDate(DateFormatter.getCurrentDateFormatted());
         order.setCustomer(shoppingCart.getCustomer());
@@ -43,9 +43,11 @@ public class OrderServiceImpl implements OrderService {
         order.setAccept(false);
         order.setCancelByCustomer(false);
         order.setDeny(false);
-        order.setPaymentMethod("Thanh toán khi nhận hàng");
+        order.setPaymentMethod(paymentMethod);
         order.setOrderStatus("Chờ xác nhận");
         order.setQuantity(shoppingCart.getTotalItems());
+        order.setAddress(address);
+        order.setPhoneNumber(phone);
         List<OrderDetail> orderDetailList = new ArrayList<>();
         for (CartItem item : shoppingCart.getCartItems()) {
             OrderDetail orderDetail = new OrderDetail();

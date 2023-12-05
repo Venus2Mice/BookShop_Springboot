@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -76,7 +77,8 @@ public class CustomerOrderController {
     }
 
     @RequestMapping(value = "/add-order", method = { RequestMethod.POST })
-    public String createOrder(Principal principal,
+    public String createOrder(Principal principal, @RequestParam(name = "address" , required = false) String address,
+            @RequestParam(name = "phoneNumber" , required = false) String phone, @RequestParam("paymentMethod") String paymentMethod,
             Model model,
             HttpSession session) {
         if (principal == null) {
@@ -87,13 +89,13 @@ public class CustomerOrderController {
                 return "redirect:/profile?edit";
             } else {
                 ShoppingCart cart = customer.getCart();
-                Order order = orderService.save(cart);
+                Order order = orderService.save(cart, address, phone, paymentMethod);
                 session.removeAttribute("totalItems");
                 model.addAttribute("order", order);
                 model.addAttribute("title", "Order Detail");
                 model.addAttribute("page", "Order Detail");
                 model.addAttribute("success", "Add order successfully");
-                return "redirect:/cart";
+                return "redirect:/order";
             }
         }
     }

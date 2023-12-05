@@ -79,6 +79,13 @@ function checkPass(password) {
     return regex.test(password);
 }
 
+const phoneNumber = document.getElementById('phoneNumber');
+phoneNumber.addEventListener('input', () => {
+    // Xóa mọi ký tự không phải số khỏi giá trị của input
+    phoneNumber.value = phoneNumber.value.replace(/\D/g, '');
+});
+
+
 
 
 

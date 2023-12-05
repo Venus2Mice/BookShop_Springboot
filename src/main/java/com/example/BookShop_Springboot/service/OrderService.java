@@ -7,7 +7,7 @@ import com.example.BookShop_Springboot.model.Product;
 import java.util.List;
 
 public interface OrderService {
-    Order save(ShoppingCart shoppingCart);
+    Order save(ShoppingCart shoppingCart, String address, String phone, String paymentMethod);
 
     List<Order> findAll(String username);
 
