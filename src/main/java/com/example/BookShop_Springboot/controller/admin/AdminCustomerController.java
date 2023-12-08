@@ -48,7 +48,7 @@ public class AdminCustomerController {
     public String delete(Long id, RedirectAttributes redirectAttributes) {
         try {
             customerService.disableById(id);
-            redirectAttributes.addFlashAttribute("success", "Disable successfully!");
+            redirectAttributes.addFlashAttribute("success", "Enable successfully!");
         } catch (DataIntegrityViolationException e1) {
             e1.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Duplicate name of customer, please check again!");
@@ -63,7 +63,7 @@ public class AdminCustomerController {
     public String enable(Long id, RedirectAttributes redirectAttributes) {
         try {
             customerService.enableById(id);
-            redirectAttributes.addFlashAttribute("success", "Enable successfully");
+            redirectAttributes.addFlashAttribute("success", "Disable successfully");
         } catch (DataIntegrityViolationException e1) {
             e1.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Duplicate name of customer, please check again!");
