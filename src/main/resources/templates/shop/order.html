@@ -35,43 +35,52 @@
                     <div class="col-10">
                         <ul class="body__list p-0" th:each="order:${orders}">
 
-                            <li class="body__list-item mb-5">                                                                                                
+                            <li class="body__list-item mb-5">
                                 <div class="card card-body">
                                     <div class="d-flex justify-content-between">
                                         <div class="left d-flex flex-column p-2">
                                             <span>Mã đơn hàng: <span th:text="${order.id}"></span></span>
-                                            <span>Trạng thái: <span class="text-primary" th:text="${order.orderStatus}"></span></span>
-                                            <span>Ngày đặt hàng: <span class="text-primary timeValue" th:text="${order.orderDate}"></span></span>
-                                            <span>Ngày giao hàng: <span class="text-primary timeValue" th:text="${order.deliveryDate}"></span></span>
-                                            <span>Hình thức thanh toán: <span class="text-primary " th:text="${order.paymentMethod}"></span></span>
-                                            <span>Tổng tiền: <span class="text-danger product__price" th:text="${order.totalPrice}"></span></span>
+                                            <span>Trạng thái: <span class="text-primary"
+                                                    th:text="${order.orderStatus}"></span></span>
+                                            <span>Ngày đặt hàng: <span class="text-primary timeValue"
+                                                    th:text="${order.orderDate}"></span></span>
+                                            <span>Ngày giao hàng: <span class="text-primary timeValue"
+                                                    th:text="${order.deliveryDate}"></span></span>
+                                            <span>Hình thức thanh toán: <span class="text-primary "
+                                                    th:text="${order.paymentMethod}"></span></span>
+                                            <span>Tổng tiền: <span class="text-danger product__price"
+                                                    th:text="${order.totalPrice}"></span></span>
                                         </div>
-                                        <div class="right d-flex flex-column p-2"> 
-                                            <span>SĐT: <span class="text-primary " th:text="${order.phoneNumber}"></span></span>
-                                            <span>Địa chỉ nhận hàng: <span class="text-primary " th:text="${order.address}"></span></span>                                           
+                                        <div class="right d-flex flex-column p-2">
+                                            <span>SĐT: <span class="text-primary "
+                                                    th:text="${order.phoneNumber}"></span></span>
+                                            <span>Địa chỉ nhận hàng: <span class="text-primary "
+                                                    th:text="${order.address}"></span></span>
                                         </div>
                                     </div>
                                     <div class="text-end py-2 px-4">
                                         <button class="btn btn-success" data-bs-toggle="collapse" type="button"
-                                        th:data-bs-target="'#collapse'+${order.id}" aria-expanded="false"
-                                        th:aria-controls="'collapse'+${order.id}">Chi tiết đơn</button>
+                                            th:data-bs-target="'#collapse'+${order.id}" aria-expanded="false"
+                                            th:aria-controls="'collapse'+${order.id}">Chi tiết đơn</button>
 
-                                        <a th:if="${order.isAccept==false && order.isCancelByCustomer==false}"
-                                        th:href="@{/cancel-order-by-customer/{id}(id=${order.id})}"
-                                        role="button" class="btn btn-danger">Hủy đơn</a>
+                                        <a th:if="${order.isAccept==false && order.isCancelByCustomer==false && order.orderStatus!='Đã thanh toán! Chờ giao hàng'}"
+                                            th:href="@{/cancel-order-by-customer/{id}(id=${order.id})}" role="button"
+                                            class="btn btn-danger">Hủy đơn</a>
                                         <a th:if="${order.isAccept==true && order.orderStatus!='Đã nhận hàng'}"
-                                            th:href="@{/accept-order-by-customer/{id}(id=${order.id})}"
-                                            role="button" class="btn btn-primary">Đã nhận hàng</a>
+                                            th:href="@{/accept-order-by-customer/{id}(id=${order.id})}" role="button"
+                                            class="btn btn-primary">Đã nhận hàng</a>
                                     </div>
                                 </div>
 
                                 <div class="collapse " th:id="'collapse'+${order.id}">
                                     <div class="card card-body">
-                                        <ul class="order__list-body p-0" th:each="orderDetail,iStat:${order.orderDetailList}">
-                                            <li class="order__list-item ps-3 pe-3 py-3">                                                
+                                        <ul class="order__list-body p-0"
+                                            th:each="orderDetail,iStat:${order.orderDetailList}">
+                                            <li class="order__list-item ps-3 pe-3 py-3">
                                                 <a th:href="@{/product-detail/{id}(id=${orderDetail.product.id})}"
                                                     class="d-flex justify-content-around">
-                                                    <div class="text-dark d-flex align-items-center px-3" th:text="${iStat.index+1}+'.'"></div>
+                                                    <div class="text-dark d-flex align-items-center px-3"
+                                                        th:text="${iStat.index+1}+'.'"></div>
                                                     <div class="order__item-img me-3">
                                                         <img th:src="'data:image/jpeg;base64,' + ${orderDetail.product.image}"
                                                             alt=""

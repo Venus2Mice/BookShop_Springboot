@@ -21,7 +21,7 @@ function editQuantity(e, id) {
     e.preventDefault();
     var trElement = document.getElementById(id);
     var elementInput = trElement.querySelector('input.quantity-input');
-    
+
     if (elementInput !== null) {
         var quantity = elementInput.value;
     }

@@ -54,43 +54,27 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-      Interface
+      Feature
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
       <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
         aria-controls="collapseTwo">
         <i class="fas fa-fw fa-cog"></i>
-        <span>Components</span>
+        <span>Manager</span>
       </a>
       <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Components list:</h6>
-          <a class="collapse-item" href="products.html" th:href="@{/admin/products/0}">Manage Product</a>
-          <a class="collapse-item" href="categories.html" th:href="@{/admin/categories}">Manage Category</a>
-          <a class="collapse-item" href="products.html" th:href="@{/admin/supplier}">Manage Supplier</a>
-          <a class="collapse-item" href="products.html" th:href="@{/admin/receipts/0}">Manage Receipt</a>
-          <a class="collapse-item" th:href="@{/admin/orders}">Manage Orders</a>
-          <a class="collapse-item" th:href="@{/admin/customer}">Manage Customer</a>
+          <h6 class="collapse-header">Feature list:</h6>
+          <a class="collapse-item" th:href="@{/admin/products/0}">1.Product</a>
+          <a class="collapse-item" th:href="@{/admin/categories}">2.Category</a>
+          <a class="collapse-item" th:href="@{/admin/supplier}">3.Supplier</a>
+          <a class="collapse-item" th:href="@{/admin/receipts/0}">4.Receipt</a>
+          <a class="collapse-item" th:href="@{/admin/orders}">5.Orders</a>
+          <a class="collapse-item" th:href="@{/admin/customer}">6.Customer</a>
         </div>
       </div>
     </li>
-
-    <!-- Nav Item - Utilities Collapse Menu
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-        aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fas fa-fw fa-wrench"></i>
-        <span>Manage Orders</span>
-      </a>
-      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Custom Utilities:</h6>
-          
-        </div>
-      </div>
-    </li> -->
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -110,29 +94,12 @@
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <h6 class="collapse-header">Login Screens:</h6>
-          <a class="collapse-item" href="login.html">Login</a>
-          <a class="collapse-item" href="register.html">Register</a>
-          <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+          <a class="collapse-item" th:href="@{/admin/login}">Login</a>
+          <a class="collapse-item" th:href="@{/admin/register}">Register</a>
+          <a class="collapse-item" th:href="@{/admin/forgot-password}">Forgot Password</a>
           <div class="collapse-divider"></div>
-          <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="404.html">404 Page</a>
-          <a class="collapse-item" href="blank.html">Blank Page</a>
         </div>
       </div>
-    </li>
-
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-      <a class="nav-link" href="charts.html">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Charts</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-      <a class="nav-link" href="update-product.html">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Tables</span></a>
     </li>
 
     <!-- Divider -->
@@ -151,19 +118,6 @@
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
       <i class="fa fa-bars"></i>
     </button>
-
-    <!-- Topbar Search -->
-    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-      <div class="input-group">
-        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search"
-          aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button">
-            <i class="fas fa-search fa-sm"></i>
-          </button>
-        </div>
-      </div>
-    </form> -->
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

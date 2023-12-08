@@ -17,10 +17,12 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long> {
     @Query(value = "select r from Receipt r inner join Supplier s on s.id = ?1 and r.supplier.id = ?1 ")
     List<Receipt> getReceiptBySupplierId(Long id);
 
-    @Query("select r from Receipt r where r.name like %?1% ")
+    @Query("select r from Receipt r where r.id like %?1% ")
     List<Receipt> searchReceipts(String keyword);
 
     @Query("select r from Receipt r where r.adminUpdate.id = ?1")
     List<Receipt> findAllByAdminId(Long id);
+
+    Receipt getById(String id);
 
 }

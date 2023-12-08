@@ -22,4 +22,6 @@ public interface OrderService {
     void acceptOrderByCustomer(String id);
 
     Order getOrderById(String id);
+
+    void savePaypal(ShoppingCart cart, String address, String phone);
 }

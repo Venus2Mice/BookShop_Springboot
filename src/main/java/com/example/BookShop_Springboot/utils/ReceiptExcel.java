@@ -52,6 +52,8 @@ public class ReceiptExcel {
             Row row = sheet.getRow(i);
 
             String nameProduct = row.getCell(0).getStringCellValue();
+            if (nameProduct.equals("") || nameProduct == null)
+                continue;
             int quantity = (int) row.getCell(1).getNumericCellValue();
             double totalPrice = row.getCell(2).getNumericCellValue();
 
@@ -78,7 +80,7 @@ public class ReceiptExcel {
                 receiptDetails.add(receiptDetail);
             }
         }
-        
+
         return receiptDetails;
     }
 

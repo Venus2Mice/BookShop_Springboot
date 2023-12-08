@@ -3,6 +3,7 @@ package com.example.BookShop_Springboot.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,10 +17,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "receipts")
 public class Receipt {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "receipt_id")
-    private Long id;
-    private String name;
+    @Column(name = "receipt_id", length = 16, unique = true)
+    private String id;
+    private String description;
     private Date createDate;
     private double totalPrice;
     private boolean checkOut;
@@ -36,12 +36,20 @@ public class Receipt {
     private Admin adminUpdate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_supplier_receipt" ,referencedColumnName = "supplier_id")
+    @JoinColumn(name = "fk_supplier_receipt", referencedColumnName = "supplier_id")
     private Supplier supplier;
 
-    public Receipt(String name) {
-        this.name = name;
-        this.createDate = new Date();
-        this.checkOut = false;
+    @PrePersist
+    public void generateUniqueOrderId() {
+        // Tạo UUID
+        UUID uuid = UUID.randomUUID();
+        // Chuyển UUID thành chuỗi và loại bỏ dấu "-"
+        String receiptIdString = uuid.toString().replace("-", "");
+        // Chuyển chuỗi thành chữ hoa (nếu là chữ cái)
+        this.id = receiptIdString.toUpperCase();
+        // Cắt lấy 16 ký tự đầu
+        if (this.id.length() > 16) {
+            this.id = this.id.substring(0, 16);
+        }
     }
 }

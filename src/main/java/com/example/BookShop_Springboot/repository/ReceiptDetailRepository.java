@@ -10,6 +10,6 @@ import com.example.BookShop_Springboot.model.ReceiptDetail;
 @Repository
 public interface ReceiptDetailRepository extends JpaRepository<ReceiptDetail, Long> {
 
-    List<ReceiptDetail> findByReceiptId(Long id);
+    List<ReceiptDetail> findByReceiptId(String id);
 
 }

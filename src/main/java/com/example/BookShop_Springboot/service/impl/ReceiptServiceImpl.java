@@ -33,7 +33,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     private final ProductRepository productRepository;
 
     @Override
-    public List<ReceiptDetail> findByReceiptId(Long id) {
+    public List<ReceiptDetail> findByReceiptId(String id) {
         return receiptDetailRepository.findByReceiptId(id);
     }
 
@@ -47,7 +47,6 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Receipt save(ReceiptDto receiptDto) {
         Receipt receipt = new Receipt();
-        receipt.setName(receiptDto.getName());
         receipt.setCreateDate(receiptDto.getCreateDate());
         receipt.setTotalPrice(receiptDto.getTotalPrice());
         receipt.setAdminCreate(receiptDto.getAdminCreate());
@@ -65,7 +64,6 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Receipt initDefault(Admin adminCreate, Admin adminUpdate) {
         Receipt receipt = new Receipt();
-        receipt.setName("Need edit");
         receipt.setCreateDate(DateFormatter.getCurrentDateFormatted());
         receipt.setTotalPrice(0);
         receipt.setCheckOut(false);
@@ -79,8 +77,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Receipt update(ReceiptDto receiptDto) {
         try {
-            Receipt receiptUpdate = receiptRepository.getReferenceById(receiptDto.getId());
-            receiptUpdate.setName(receiptDto.getName());
+            Receipt receiptUpdate = receiptRepository.getById(receiptDto.getId());
             receiptUpdate.setCreateDate(receiptDto.getCreateDate());
             receiptUpdate.setTotalPrice(receiptDto.getTotalPrice());
             receiptUpdate.setAdminCreate(receiptDto.getAdminCreate());
@@ -97,18 +94,19 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public Receipt update(Receipt receiptNew, Receipt receiptOld) {
         receiptOld.setAdminUpdate(receiptNew.getAdminUpdate());
-        receiptOld.setName(receiptNew.getName());
+        receiptOld.setDescription(receiptNew.getDescription());
         receiptOld.setSupplier(receiptNew.getSupplier());
         return receiptRepository.save(receiptOld);
     }
 
     @Override
-    public void enableById(Long id) {
-        Receipt receipt = receiptRepository.getReferenceById(id);
+    public void enableById(String id) {
+        Receipt receipt = receiptRepository.getById(id);
         receipt.setCheckOut(true);
         double totalPrice = 0;
         for (ReceiptDetail receiptDetail : receipt.getReceiptDetails()) {
             Product product = productRepository.getReferenceById(receiptDetail.getProduct().getId());
+            product.setSalePrice(receiptDetail.getTotalPrice());
             product.setCurrentQuantity(receiptDetail.getQuantity() + product.getCurrentQuantity());
             productRepository.save(product);
             totalPrice += receiptDetail.getTotalPrice();
@@ -118,8 +116,8 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        Receipt receipt = receiptRepository.findById(id).get();
+    public void deleteById(String id) {
+        Receipt receipt = receiptRepository.getById(id);
         if (!receipt.isCheckOut()) {
             receiptRepository.delete(receipt);
         }
@@ -130,7 +128,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         ReceiptDto receiptDto = new ReceiptDto();
         Receipt receipt = receiptRepository.getReferenceById(id);
         receiptDto.setId(receipt.getId());
-        receiptDto.setName(receipt.getName());
         receiptDto.setCreateDate(receipt.getCreateDate());
         receiptDto.setTotalPrice(receipt.getTotalPrice());
         receiptDto.setAdminUpdate(receipt.getAdminUpdate());
@@ -141,8 +138,8 @@ public class ReceiptServiceImpl implements ReceiptService {
     }
 
     @Override
-    public Receipt findById(Long id) {
-        return receiptRepository.findById(id).get();
+    public Receipt findById(String id) {
+        return receiptRepository.getById(id);
     }
 
     @Override
@@ -194,7 +191,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         for (Receipt receipt : receipts) {
             ReceiptDto receiptDto = new ReceiptDto();
             receiptDto.setId(receipt.getId());
-            receiptDto.setName(receipt.getName());
             receiptDto.setCreateDate(receipt.getCreateDate());
             receiptDto.setTotalPrice(receipt.getTotalPrice());
             receiptDto.setAdminUpdate(receipt.getAdminUpdate());
@@ -224,8 +220,8 @@ public class ReceiptServiceImpl implements ReceiptService {
     // }
 
     @Override
-    public void saveReceiptDetail(Admin findByEmail, List<ReceiptDetail> receiptDetails, Long id) {
-        Receipt receipt = receiptRepository.findById(id).orElse(null); // Lấy thông tin receipt theo ID
+    public void saveReceiptDetail(Admin findByEmail, List<ReceiptDetail> receiptDetails, String id) {
+        Receipt receipt = receiptRepository.getById(id); // Lấy thông tin receipt theo ID
         
         if (receipt != null) {
             List<ReceiptDetail> existingDetails = receipt.getReceiptDetails(); // Danh sách chi tiết phiếu hiện tại của receipt

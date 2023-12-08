@@ -59,10 +59,10 @@
                             <div class="row mb-4"  th:if="${receipt.checkOut} == false">
                                 <div class="col-md-6">
                                   <div class="form-group-row">
-                                    <label class="col-md control-label" for="receipt_name">RECEIPT NAME</label>
+                                    <label class="col-md control-label" for="description">RECEIPT DESC</label>
                                     <div class="col-sm-9">
-                                      <input id="receipt_name" th:field="*{name}" name="receipt_name" class="form-control input-md"
-                                        required="" type="text">
+                                      <input id="description" th:field="*{description}" name="description" class="form-control input-md"
+                                        maxlength="50" pattern="\c{50}" type="text">
                                     </div>
                                   </div>
                                 </div>

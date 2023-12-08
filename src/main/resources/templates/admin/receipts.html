@@ -50,7 +50,7 @@
                     <table class="table table-bordered" th:if = "${size > 0}">
                         <thead>
                         <tr>
-                            <th scope="col">Name</th>
+                            <th scope="col">Code</th>
                             <th scope="col">Create Date</th>
                             <th scope="col">Total Price</th>
                             <th scope="col">User create</th>
@@ -62,7 +62,7 @@
                         </thead>
                         <tbody>
                         <tr th:each = "receipt : ${receipts}">
-                            <th scope="row" th:text = "${receipt.name}"></th>
+                            <th scope="row" th:text = "${receipt.id}"></th>
                             <td th:text = "${receipt.createDate}"></td>
                             <td class="product__price" th:text = "${receipt.totalPrice}"></td>
                             <td th:text = "${receipt.adminCreate.username}"></td>

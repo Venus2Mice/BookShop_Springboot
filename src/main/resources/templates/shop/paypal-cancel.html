@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <th:block th:insert="~{/shop/fragments :: header-include}">
+    </th:block>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- start header -->
+        <div th:replace="~{/shop/fragments::header}"></div>
+        <!-- end header -->
+
+        <!-- start body -->
+        <div class="container vh-100">
+            <div class="text-center mt-5">
+                <h1>Giao dịch không thành công!</h1>
+                <img th:src="@{/img/312.jpg}" class="img-fluid" style="width: 20%;" alt="">                
+                <a th:href="@{/cart}">Quay lại giỏ hàng</a>
+            </div>
+        </div>
+        <!-- end body -->
+
+        <!-- start footer -->
+        <footer th:replace="~{/shop/fragments::footer}"></footer>
+        <!-- end footer -->
+
+        <div th:replace="~{/shop/fragments::modal}"></div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+    <!-- Fontawsome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+
+</body>
+
+</html>

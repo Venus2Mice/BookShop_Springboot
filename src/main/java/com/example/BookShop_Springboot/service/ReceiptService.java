@@ -22,13 +22,13 @@ public interface ReceiptService {
 
     Receipt update(Receipt receiptNew, Receipt receiptOld);
 
-    void enableById(Long id);
+    void enableById(String id);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
     ReceiptDto getById(Long id);
 
-    Receipt findById(Long id);
+    Receipt findById(String id);
 
     Page<ReceiptDto> searchReceipts(int pageNo, String keyword);
 
@@ -40,10 +40,10 @@ public interface ReceiptService {
 
     List<ReceiptDto> searchReceipts(String keyword);
 
-    List<ReceiptDetail> findByReceiptId(Long id);
+    List<ReceiptDetail> findByReceiptId(String id);
 
     void removeProductFromReceiptDetail(Long id);
 
-    void saveReceiptDetail(Admin findByEmail, List<ReceiptDetail> receiptDetails, Long id);
+    void saveReceiptDetail(Admin findByEmail, List<ReceiptDetail> receiptDetails, String id);
 
 }

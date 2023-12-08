@@ -141,4 +141,33 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public void savePaypal(ShoppingCart shoppingCart, String address, String phone) {
+        Order order = new Order();
+        order.setOrderDate(DateFormatter.getCurrentDateFormatted());
+        order.setCustomer(shoppingCart.getCustomer());
+        order.setTax(10);
+        order.setTotalPrice(shoppingCart.getTotalPrice());
+        order.setAccept(false);
+        order.setCancelByCustomer(false);
+        order.setPaymentMethod("Paypal");
+        order.setOrderStatus("Đã thanh toán! Chờ giao hàng");
+        order.setQuantity(shoppingCart.getTotalItems());
+        order.setAddress(address);
+        order.setPhoneNumber(phone);
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+        for (CartItem item : shoppingCart.getCartItems()) {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrder(order);
+            orderDetail.setProduct(item.getProduct());
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setUnitPrice(item.getUnitPrice());
+            detailRepository.save(orderDetail);
+            orderDetailList.add(orderDetail);
+        }
+        order.setOrderDetailList(orderDetailList);
+        cartService.deleteCartById(shoppingCart.getId());
+        orderRepository.save(order);
+    }
+
 }

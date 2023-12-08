@@ -65,23 +65,6 @@ public class ReceiptController {
         return receiptsPath;
     }
 
-    // @GetMapping("/search-receipts/{pageNo}")
-    // public String searchReceipt(@PathVariable("pageNo") int pageNo,
-    // @RequestParam(value = "keyword") String keyword,
-    // Model model, Principal principal) {
-    // if (principal == null) {
-    // return redirectLoginPath;
-    // }
-    // Page<ReceiptDto> receipts = receiptService.searchReceipts(pageNo, keyword);
-    // model.addAttribute("title", "Result Search Receipts");
-    // model.addAttribute("size", receipts.getSize());
-    // model.addAttribute("receipts", receipts);
-    // model.addAttribute("currentPage", pageNo);
-    // model.addAttribute("totalPages", receipts.getTotalPages());
-    // return "receipts-result";
-
-    // }
-
     @GetMapping("/add-receipt")
     public String addReceipt(RedirectAttributes redirectAttributes, Principal principal, Model model) {
         try {
@@ -99,7 +82,7 @@ public class ReceiptController {
     }
 
     @GetMapping("/receipt-detail")
-    public String receiptDetail(@RequestParam(name = "id") Long id, RedirectAttributes redirectAttributes,
+    public String receiptDetail(@RequestParam(name = "id") String id, RedirectAttributes redirectAttributes,
             Principal principal, Model model) {
         try {
             if (principal == null) {
@@ -120,7 +103,7 @@ public class ReceiptController {
 
     @PostMapping("/receipt-detail/import")
     @CacheEvict(cacheNames = "products", allEntries = true)
-    public String importReceipt(@RequestParam(name = "file") MultipartFile file, @RequestParam(name = "id") Long id,
+    public String importReceipt(@RequestParam(name = "file") MultipartFile file, @RequestParam(name = "id") String id,
             RedirectAttributes redirectAttributes,
             Principal principal) {
         try {
@@ -139,7 +122,7 @@ public class ReceiptController {
 
     @PostMapping("/receipt/update")
     public String updateReceipt(@ModelAttribute("receipt") Receipt receipt,
-            RedirectAttributes redirectAttributes, Principal principal, @RequestParam("id") Long id) {
+            RedirectAttributes redirectAttributes, Principal principal, @RequestParam("id") String id) {
         try {
             if (principal == null) {
                 return redirectLoginPath;
@@ -170,7 +153,7 @@ public class ReceiptController {
 
     @RequestMapping(value = "/enable-receipt", method = { RequestMethod.PUT, RequestMethod.GET })
     @CacheEvict(cacheNames = "products", allEntries = true)
-    public String enabledReceipt(Long id, RedirectAttributes redirectAttributes, Principal principal) {
+    public String enabledReceipt(String id, RedirectAttributes redirectAttributes, Principal principal) {
         try {
             if (principal == null) {
                 return redirectLoginPath;
@@ -185,7 +168,7 @@ public class ReceiptController {
     }
 
     @RequestMapping(value = "/delete-receipt", method = { RequestMethod.PUT, RequestMethod.GET })
-    public String deletedReceipt(Long id, RedirectAttributes redirectAttributes, Principal principal) {
+    public String deletedReceipt(String id, RedirectAttributes redirectAttributes, Principal principal) {
         try {
             if (principal == null) {
                 return redirectLoginPath;
@@ -201,7 +184,7 @@ public class ReceiptController {
 
     @RequestMapping(value = "/receiptDetails/delete-receiptDetail", method = { RequestMethod.PUT,
             RequestMethod.GET })
-    public String deleteProductInReceiptDetail(@RequestParam("id") Long id, @RequestParam("idReceipt") Long idReceipt,
+    public String deleteProductInReceiptDetail(@RequestParam("id") Long id, @RequestParam("idReceipt") String idReceipt,
             RedirectAttributes redirectAttributes, Principal principal) {
         try {
             if (principal == null) {

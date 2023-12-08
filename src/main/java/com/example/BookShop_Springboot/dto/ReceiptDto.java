@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReceiptDto {
-    private Long id;
-    private String name;
+    private String id;
+    private String description;
     private Date createDate;
     private double totalPrice;
     private String currentPage;
