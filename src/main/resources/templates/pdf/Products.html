@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        h1 {
+            color: brown;
+        }
+
+        .quotation {
+            width: 100%;
+        }
+
+        .quotation,
+        .quotation th,
+        .quotation td {
+            border: 1px solid brown;
+            border-collapse: collapse;
+        }
+
+        .quotation th {
+            background-color: brown;
+            color: white;
+        }
+
+        @font-face {
+            src: url(/fonts/vuArial.ttf);
+            -fs-pdf-font-embed: embed;
+            -fs-pdf-font-encoding: UTF-8;
+        }
+
+        body {
+            font-family: "vuArial";
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Product List</h1>    
+    <br />
+    <table class="quotation">
+        <tr>
+            <th>Item #</th>
+            <th>Name</th>
+            <th>Sale Price</th>
+            <th>Authors</th>
+        </tr>
+        <tr th:each="product, iterStat: ${products}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td style="width: 60%;" th:text="${product.name}"></td>
+            <td th:text="${product.salePrice}"></td>
+            <td th:text="${product.authors}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>

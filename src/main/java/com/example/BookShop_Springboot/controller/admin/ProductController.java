@@ -2,18 +2,31 @@ package com.example.BookShop_Springboot.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.xhtmlrenderer.layout.SharedContext;
+import org.xhtmlrenderer.pdf.ITextFontResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import com.example.BookShop_Springboot.dto.ProductDto;
 import com.example.BookShop_Springboot.model.Category;
+import com.example.BookShop_Springboot.model.Product;
 import com.example.BookShop_Springboot.service.CategoryService;
 import com.example.BookShop_Springboot.service.ProductService;
+import com.lowagie.text.pdf.BaseFont;
 
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.security.Principal;
 import java.util.List;
 
@@ -31,6 +44,10 @@ public class ProductController {
     private final ProductService productService;
 
     private final CategoryService categoryService;
+
+    // private final PdfGenerateService pdfGenerateService;
+
+    private final TemplateEngine templateEngine;
 
     @GetMapping("/products")
     public String products(Model model, Principal principal) {
@@ -165,4 +182,48 @@ public class ProductController {
         }
         return redirectProductsPath;
     }
+
+    @GetMapping("/pdf/export")
+    public void pdftReport(Model model, HttpServletResponse response) throws Exception {
+
+        List<Product> products = productService.findAll();
+        model.addAttribute("products", products);
+        // Create a Thymeleaf context
+        Context context = new Context();
+        context.setVariables(model.asMap());
+
+        String htmlContent = templateEngine.process("pdf/Products", context);
+        try {
+            // Generate PDF from HTML content
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ITextRenderer renderer = new ITextRenderer();
+
+            // Set font resolver to use Times New Roman
+            ITextFontResolver fontResolver = renderer.getFontResolver();
+            fontResolver.addFont(
+                    new ClassPathResource("static/fonts/vuArial.ttf").getFile().getAbsolutePath(),
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            renderer.setDocumentFromString(htmlContent);
+            renderer.layout();
+            renderer.createPDF(outputStream);
+            renderer.finishPDF();
+
+            // Set response content type
+            response.setContentType("application/pdf");
+
+            // Set content disposition to force download if needed
+            response.setHeader("Content-Disposition", "attachment; filename=Product-List.pdf");
+            response.setHeader("Content-Encoding", "UTF-8");
+
+            // Write the output stream to the response's output stream
+            OutputStream out = response.getOutputStream();
+            outputStream.writeTo(out);
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
+    }
+
 }

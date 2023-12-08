@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        h1 {
+            color: brown;
+        }
+
+        .quotation {
+            width: 100%;
+        }
+
+        .quotation,
+        .quotation th,
+        .quotation td {
+            border: 1px solid brown;
+            border-collapse: collapse;
+        }
+
+        .quotation th {
+            background-color: brown;
+            color: white;
+        }
+
+        @font-face {
+            src: url(/fonts/vuArial.ttf);
+            -fs-pdf-font-embed: embed;
+            -fs-pdf-font-encoding: UTF-8;
+        }
+
+        body {
+            font-family: "vuArial";
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Order List</h1>
+
+    <br />
+    <table class="quotation">
+        <tr>
+            <th>Item #</th>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Total Price</th>
+            <th>paymentMethod</th>
+            <th>Create Date</th>
+        </tr>
+        <tr th:each="order, iterStat: ${orders}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.customer.email}"></td>
+            <td th:text="${order.totalPrice}"></td>
+            <td th:text="${order.paymentMethod}"></td>
+            <td th:text="${order.orderDate}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>

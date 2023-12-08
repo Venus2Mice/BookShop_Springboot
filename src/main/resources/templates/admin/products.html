@@ -40,6 +40,7 @@
                         </div>
                     </form>
                     <a th:href="@{/admin/add-product}" class = "btn btn-primary">Add Product</a>
+                    <a th:href="@{/admin/pdf/export}" class = "btn btn-primary">Print PDF</a>
                     <p th:if="${size == 0} ">No Products</p>
                     <div th:if = "${success}" class = "text-center alert alert-success">
                         <p th:text = "${success}"></p>
