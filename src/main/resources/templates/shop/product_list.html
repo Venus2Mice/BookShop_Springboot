@@ -16,6 +16,13 @@
         <!-- end header -->
 
         <!-- start body -->
+        <div class="container vh-100" th:if="${size == 0}">
+            <div class="text-center mt-5">
+                <h1>Không có sản phầm thuôc thể loại <span th:text="${param.name}"></span>!</h1>
+                <img th:src="@{/img/312.jpg}" class="img-fluid" style="width: 20%;" alt="">                
+                <a th:href="@{/}">Quay lại trang chủ</a>
+            </div>
+        </div>
         <section class="d-flex flex-row " style="background-color: #eee;">
             <!-- Product side -->
             <div class="product-side justify-content-center w-100">
@@ -153,7 +160,7 @@
                         </li>
                     </ul>
                 </nav>
-                <nav aria-label="..." class=" pb-5" th:if="${param.name!=null}">
+                <nav aria-label="..." class=" pb-5" th:if="${param.name!=null && size > 0}">
                     <ul class="justify-content-center pagination " style="width: auto;background-color: #eee;">
                         <li th:if="${currentPage != 0}" class="page-item " style="width: auto;">
                             <a th:href="@{'/products-category/' + ${currentPage - 1}(name=${param.name})}"
