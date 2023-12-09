@@ -22,7 +22,8 @@
                 <nav th:replace="~{/admin/fragments::top-navbar}"></nav>
                 <!-- End of Topbar -->
 
-                <a th:href="@{/admin/pdf/export/order-detail(id = ${param.id})}" class="btn btn-primary">Print PDF</a>
+                <a th:href="@{/admin/pdf/export/order-detail(id = ${param.id})}"
+                    style="text-decoration: none; color: white;" class="btn btn-danger">Print PDF</a>
                 <!-- start body -->
                 <section class="pt-5 pb-5">
                     <div class="container">

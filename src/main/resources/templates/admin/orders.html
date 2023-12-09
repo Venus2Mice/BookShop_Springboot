@@ -23,7 +23,8 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <a th:href="@{/admin/pdf/export/order}" class = "btn btn-primary">Print PDF</a>
+                <a th:href="@{/admin/pdf/export/orders}" class="btn btn-danger"
+                    style="text-decoration: none; color: white;">Print PDF</a>
                 <div th:if="${success}" class="text-center alert alert-success">
                     <p th:text="${success}">
                     </p>
@@ -72,8 +73,8 @@
                                         class=" btn btn-primary">Accept</a>
                                     <a th:if="${order.accept} == true" class="btn btn-secondary" disabled>Accepted</a>
                                     <a th:if="${order.isCancelByCustomer} == true" class="btn btn-secondary"
-                                        disabled>Cancel</a>                                    
-                                </td>                               
+                                        disabled>Cancel</a>
+                                </td>
                                 <td>
                                     <a th:href="@{/admin/order-detail(id=${order.id})}"
                                         class="btn btn-success">Detail</a>

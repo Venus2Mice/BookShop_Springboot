@@ -1,16 +1,13 @@
 package com.example.BookShop_Springboot.controller.admin;
 
-import com.example.BookShop_Springboot.model.Customer;
 import com.example.BookShop_Springboot.model.Order;
-import com.example.BookShop_Springboot.model.OrderDetail;
 import com.example.BookShop_Springboot.model.Product;
 import com.example.BookShop_Springboot.service.OrderService;
-import com.lowagie.text.pdf.BaseFont;
+import com.itextpdf.html2pdf.HtmlConverter;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.xhtmlrenderer.pdf.ITextFontResolver;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -38,7 +33,7 @@ public class OrderController {
 
     private final OrderService orderService;
 
-     private final TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
 
     @GetMapping("/orders")
     public String getAll(Model model, Principal principal) {
@@ -77,89 +72,63 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/pdf/export/order")
-    public void pdftReport(Model model, HttpServletResponse response) throws Exception {
-
-        List<Order> orders = orderService.findALlOrders();
-        model.addAttribute("orders", orders);
-        // Create a Thymeleaf context
-        Context context = new Context();
-        context.setVariables(model.asMap());
-
-        String htmlContent = templateEngine.process("pdf/Orders", context);
+    @GetMapping("/pdf/export/orders")
+    public void downloadGeneratedPdfOrders(Model model, HttpServletResponse response) throws IOException {
         try {
-            // Generate PDF from HTML content
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ITextRenderer renderer = new ITextRenderer();
+            List<Order> orders = orderService.findALlOrders();
+            model.addAttribute("orders", orders);
 
-            // Set font resolver to use Times New Roman
-            ITextFontResolver fontResolver = renderer.getFontResolver();
-            fontResolver.addFont(
-                    new ClassPathResource("static/fonts/vuArial.ttf").getFile().getAbsolutePath(),
-                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            // Create a Thymeleaf context
+            Context context = new Context();
+            context.setVariables(model.asMap());
 
-            renderer.setDocumentFromString(htmlContent);
-            renderer.layout();
-            renderer.createPDF(outputStream);
-            renderer.finishPDF();
+            String processedTemplate = templateEngine.process("pdf/Orders", context);
 
-            // Set response content type
+            // Create an output stream to store the PDF content
+            ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+            // Convert HTML string to PDF using iText
+            HtmlConverter.convertToPdf(processedTemplate, pdfOutputStream);
+
+            // Set response headers for PDF
             response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=generated_file.pdf");
 
-            // Set content disposition to force download if needed
-            response.setHeader("Content-Disposition", "attachment; filename=Order-List.pdf");
-            response.setHeader("Content-Encoding", "UTF-8");
-
-            // Write the output stream to the response's output stream
-            OutputStream out = response.getOutputStream();
-            outputStream.writeTo(out);
-            out.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
+            // Write PDF content to the response OutputStream
+            response.getOutputStream().write(pdfOutputStream.toByteArray());
+            response.getOutputStream().flush();
+        } catch (IOException e) {
             // Handle exceptions
         }
     }
 
-        @GetMapping("/pdf/export/order-detail")
-    public void pdftReportDetail(Model model, HttpServletResponse response,@RequestParam("id") String id) throws Exception {
-
-        Order order = orderService.getOrderById(id);
-        model.addAttribute("order", order);        
-        model.addAttribute("customer", order.getCustomer());
-        // Create a Thymeleaf context
-        Context context = new Context();
-        context.setVariables(model.asMap());
-
-        String htmlContent = templateEngine.process("pdf/Order-detail", context);
+    @GetMapping("/pdf/export/order-detail")
+    public void downloadGeneratedPdfOrderDetail(Model model, HttpServletResponse response,
+            @RequestParam("id") String id) throws IOException {
         try {
-            // Generate PDF from HTML content
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ITextRenderer renderer = new ITextRenderer();
+            Order order = orderService.getOrderById(id);
+            model.addAttribute("order", order);
 
-            // Set font resolver to use Times New Roman
-            ITextFontResolver fontResolver = renderer.getFontResolver();
-            fontResolver.addFont(
-                    new ClassPathResource("static/fonts/vuArial.ttf").getFile().getAbsolutePath(),
-                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            // Create a Thymeleaf context
+            Context context = new Context();
+            context.setVariables(model.asMap());
 
-            renderer.setDocumentFromString(htmlContent);
-            renderer.layout();
-            renderer.createPDF(outputStream);
-            renderer.finishPDF();
+            String processedTemplate = templateEngine.process("pdf/Order-detail", context);
 
-            // Set response content type
+            // Create an output stream to store the PDF content
+            ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+
+            // Convert HTML string to PDF using iText
+            HtmlConverter.convertToPdf(processedTemplate, pdfOutputStream);
+
+            // Set response headers for PDF
             response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=generated_file.pdf");
 
-            // Set content disposition to force download if needed
-            response.setHeader("Content-Disposition", "attachment; filename=Order-Detail.pdf");
-            response.setHeader("Content-Encoding", "UTF-8");
-
-            // Write the output stream to the response's output stream
-            OutputStream out = response.getOutputStream();
-            outputStream.writeTo(out);
-            out.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
+            // Write PDF content to the response OutputStream
+            response.getOutputStream().write(pdfOutputStream.toByteArray());
+            response.getOutputStream().flush();
+        } catch (IOException e) {
             // Handle exceptions
         }
     }

@@ -2,39 +2,28 @@ package com.example.BookShop_Springboot.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.xhtmlrenderer.layout.SharedContext;
-import org.xhtmlrenderer.pdf.ITextFontResolver;
-import org.xhtmlrenderer.pdf.ITextRenderer;
-
 import com.example.BookShop_Springboot.dto.ProductDto;
 import com.example.BookShop_Springboot.model.Category;
 import com.example.BookShop_Springboot.model.Product;
 import com.example.BookShop_Springboot.service.CategoryService;
 import com.example.BookShop_Springboot.service.ProductService;
-import com.lowagie.text.pdf.BaseFont;
-
 import org.thymeleaf.TemplateEngine;
-import static org.thymeleaf.templatemode.TemplateMode.HTML;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-
-import org.w3c.tidy.Tidy;
-
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+
+import com.itextpdf.html2pdf.HtmlConverter;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -46,7 +35,6 @@ public class ProductController {
     private final String addProductPath = "/admin/add-product";
     private final String updateProductPath = "/admin/update-product";
     private final String productsResultPath = "/admin/product-result";
-    private static final String UTF_8 = "UTF-8";
 
     private final ProductService productService;
 
@@ -189,58 +177,32 @@ public class ProductController {
     }
 
     @GetMapping("/pdf/export")
-    public void pdftReport(Model model, HttpServletResponse response) throws Exception {
-
-        List<Product> products = productService.findAll();
-        model.addAttribute("products", products);
-        // Create a Thymeleaf context
-        Context context = new Context();
-        context.setVariables(model.asMap());
-
-        String renderedHtmlContent = templateEngine.process("pdf/Products", context);
-        String xHtml = convertToXhtml(renderedHtmlContent);
+    public void downloadGeneratedPdf(Model model, HttpServletResponse response) throws IOException {
         try {
-            // Generate PDF from HTML content
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ITextRenderer renderer = new ITextRenderer();
-
-            // Set font resolver 
-            ITextFontResolver fontResolver = renderer.getFontResolver();
-            fontResolver.addFont(
-                    new ClassPathResource("static/fonts/vuArial.ttf").getFile().getAbsolutePath(),
-                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-
-            renderer.setDocumentFromString(xHtml);
-            renderer.layout();
-            renderer.createPDF(outputStream);
-            renderer.finishPDF();
-
-            // Set response content type
+            List<Product> products = productService.findAll();
+            model.addAttribute("products", products);
+    
+            // Create a Thymeleaf context
+            Context context = new Context();
+            context.setVariables(model.asMap());
+    
+            String processedTemplate = templateEngine.process("pdf/Products", context);
+    
+            // Create an output stream to store the PDF content
+            ByteArrayOutputStream pdfOutputStream = new ByteArrayOutputStream();
+    
+            // Convert HTML string to PDF using iText
+            HtmlConverter.convertToPdf(processedTemplate, pdfOutputStream);
+    
+            // Set response headers for PDF
             response.setContentType("application/pdf");
-
-            // Set content disposition to force download if needed
-            response.setHeader("Content-Disposition", "attachment; filename=Product-List.pdf");
-            response.setHeader("Content-Encoding", "UTF-8");
-
-            // Write the output stream to the response's output stream
-            OutputStream out = response.getOutputStream();
-            outputStream.writeTo(out);
-            out.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
+            response.setHeader("Content-Disposition", "attachment; filename=generated_file.pdf");
+    
+            // Write PDF content to the response OutputStream
+            response.getOutputStream().write(pdfOutputStream.toByteArray());
+            response.getOutputStream().flush();
+        } catch (IOException e) {
             // Handle exceptions
         }
     }
-
-    private String convertToXhtml(String html) throws UnsupportedEncodingException {
-        Tidy tidy = new Tidy();
-        tidy.setInputEncoding(UTF_8);
-        tidy.setOutputEncoding(UTF_8);
-        tidy.setXHTML(true);
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(html.getBytes(UTF_8));
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        tidy.parseDOM(inputStream, outputStream);
-        return outputStream.toString(UTF_8);
-    }
-
 }
