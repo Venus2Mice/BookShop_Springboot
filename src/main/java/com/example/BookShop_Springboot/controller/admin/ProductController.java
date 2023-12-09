@@ -21,12 +21,18 @@ import com.example.BookShop_Springboot.service.ProductService;
 import com.lowagie.text.pdf.BaseFont;
 
 import org.thymeleaf.TemplateEngine;
+import static org.thymeleaf.templatemode.TemplateMode.HTML;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+
+import org.w3c.tidy.Tidy;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
 
@@ -40,12 +46,11 @@ public class ProductController {
     private final String addProductPath = "/admin/add-product";
     private final String updateProductPath = "/admin/update-product";
     private final String productsResultPath = "/admin/product-result";
+    private static final String UTF_8 = "UTF-8";
 
     private final ProductService productService;
 
     private final CategoryService categoryService;
-
-    // private final PdfGenerateService pdfGenerateService;
 
     private final TemplateEngine templateEngine;
 
@@ -192,19 +197,20 @@ public class ProductController {
         Context context = new Context();
         context.setVariables(model.asMap());
 
-        String htmlContent = templateEngine.process("pdf/Products", context);
+        String renderedHtmlContent = templateEngine.process("pdf/Products", context);
+        String xHtml = convertToXhtml(renderedHtmlContent);
         try {
             // Generate PDF from HTML content
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ITextRenderer renderer = new ITextRenderer();
 
-            // Set font resolver to use Times New Roman
+            // Set font resolver 
             ITextFontResolver fontResolver = renderer.getFontResolver();
             fontResolver.addFont(
                     new ClassPathResource("static/fonts/vuArial.ttf").getFile().getAbsolutePath(),
                     BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
 
-            renderer.setDocumentFromString(htmlContent);
+            renderer.setDocumentFromString(xHtml);
             renderer.layout();
             renderer.createPDF(outputStream);
             renderer.finishPDF();
@@ -224,6 +230,17 @@ public class ProductController {
             e.printStackTrace();
             // Handle exceptions
         }
+    }
+
+    private String convertToXhtml(String html) throws UnsupportedEncodingException {
+        Tidy tidy = new Tidy();
+        tidy.setInputEncoding(UTF_8);
+        tidy.setOutputEncoding(UTF_8);
+        tidy.setXHTML(true);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(html.getBytes(UTF_8));
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        tidy.parseDOM(inputStream, outputStream);
+        return outputStream.toString(UTF_8);
     }
 
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        h1 {
+            color: brown;
+        }
+
+        .quotation {
+            width: 100%;
+        }
+
+        .quotation,
+        .quotation th,
+        .quotation td {
+            border: 1px solid brown;
+            border-collapse: collapse;
+        }
+
+        .quotation th {
+            background-color: brown;
+            color: white;
+        }
+
+        @font-face {
+            src: url(/fonts/vuArial.ttf);
+            -fs-pdf-font-embed: embed;
+            -fs-pdf-font-encoding: UTF-8;
+        }
+
+        body {
+            font-family: "vuArial";
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Order Detail</h1>
+    <h4>Customer enmail: <span th:text="${customer.email}"></span></h4>
+    <h4>Customer phone: <span th:text="${order.phoneNumber}"></span></h4>
+    <h4>Customer address: <span th:text="${order.address}"></span></h4>
+    <h4>Create Date: <span th:text="${order.orderDate}"></span></h4>
+
+    <br />
+    <table class="quotation">
+        <tr>
+            <th>Item #</th>
+            <th>Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>            
+        </tr>
+        <tr th:each="orderDetail, iterStat: ${order.orderDetailList}">
+            <td th:text="${iterStat.index + 1}"></td>            
+            <td th:text="${orderDetail.product.name}"></td>
+            <td th:text="${orderDetail.unitPrice}"></td>
+            <td th:text="${orderDetail.quantity}"></td>            
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total: <span th:text="${order.totalPrice}"></span></td>
+            
+        </tr>
+    </table>
+</body>
+
+</html>

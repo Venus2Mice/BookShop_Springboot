@@ -1,6 +1,8 @@
 package com.example.BookShop_Springboot.controller.admin;
 
+import com.example.BookShop_Springboot.model.Customer;
 import com.example.BookShop_Springboot.model.Order;
+import com.example.BookShop_Springboot.model.OrderDetail;
 import com.example.BookShop_Springboot.model.Product;
 import com.example.BookShop_Springboot.service.OrderService;
 import com.lowagie.text.pdf.BaseFont;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -105,6 +108,50 @@ public class OrderController {
 
             // Set content disposition to force download if needed
             response.setHeader("Content-Disposition", "attachment; filename=Order-List.pdf");
+            response.setHeader("Content-Encoding", "UTF-8");
+
+            // Write the output stream to the response's output stream
+            OutputStream out = response.getOutputStream();
+            outputStream.writeTo(out);
+            out.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions
+        }
+    }
+
+        @GetMapping("/pdf/export/order-detail")
+    public void pdftReportDetail(Model model, HttpServletResponse response,@RequestParam("id") String id) throws Exception {
+
+        Order order = orderService.getOrderById(id);
+        model.addAttribute("order", order);        
+        model.addAttribute("customer", order.getCustomer());
+        // Create a Thymeleaf context
+        Context context = new Context();
+        context.setVariables(model.asMap());
+
+        String htmlContent = templateEngine.process("pdf/Order-detail", context);
+        try {
+            // Generate PDF from HTML content
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ITextRenderer renderer = new ITextRenderer();
+
+            // Set font resolver to use Times New Roman
+            ITextFontResolver fontResolver = renderer.getFontResolver();
+            fontResolver.addFont(
+                    new ClassPathResource("static/fonts/vuArial.ttf").getFile().getAbsolutePath(),
+                    BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+            renderer.setDocumentFromString(htmlContent);
+            renderer.layout();
+            renderer.createPDF(outputStream);
+            renderer.finishPDF();
+
+            // Set response content type
+            response.setContentType("application/pdf");
+
+            // Set content disposition to force download if needed
+            response.setHeader("Content-Disposition", "attachment; filename=Order-Detail.pdf");
             response.setHeader("Content-Encoding", "UTF-8");
 
             // Write the output stream to the response's output stream
