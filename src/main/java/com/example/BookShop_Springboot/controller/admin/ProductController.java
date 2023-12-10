@@ -104,8 +104,7 @@ public class ProductController {
             if (productService.findByName(product.getName()) == null) {
                 productService.save(imageProduct, product);
                 redirectAttributes.addFlashAttribute("success", "Add new product successfully!");
-            }
-            redirectAttributes.addFlashAttribute("error", "Failed to add new product!");
+            }            
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("error", "Failed to add new product!");

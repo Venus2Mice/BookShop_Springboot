@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head>
+    <th:block th:insert="~{/shop/fragments :: header-include}">
+    </th:block>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/css/about-us.css}">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- start header -->
+        <div th:replace="~{/shop/fragments::header}"></div>
+        <!-- end header -->
+
+        <!-- start body -->
+        <div class="responsive-container-block bigContainer">
+            <div class="responsive-container-block Container">
+                <img class="mainImg"
+                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/eaboutus1.svg">
+                <div class="allText aboveText">
+                    <p class="text-blk headingText">
+                        Sứ mệnh
+                    </p>
+                    <p class="text-blk subHeadingText">
+                        Cung cấp trang web sách thương mại điện tử .
+                    </p>
+                    <p class="text-blk description">
+                        Chúng tôi tự hào giới thiệu một không gian đầy sách với hàng ngàn tựa sách đa dạng, từ những tác
+                        phẩm kinh điển đến sách mới nhất trên thị trường. Với sứ mệnh tạo ra trải nghiệm mua sắm sách
+                        thuận lợi và thú vị nhất cho bạn, chúng tôi cam kết cung cấp những quyển sách chất lượng, đa
+                        dạng về thể loại và đáng tin cậy về thông tin.
+                    </p>
+                </div>
+            </div>
+            <div class="responsive-container-block Container bottomContainer">
+                <img class="mainImg"
+                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/xpraup2.svg">
+                <div class="allText bottomText">
+                    <p class="text-blk headingText">
+                        Tầm nhìn
+                    </p>
+                    <p class="text-blk subHeadingText">
+                        Đọc sách nhiều giúp bạn có cái nhìn toàn diện về thế giới.
+                    </p>
+                    <p class="text-blk description">
+                        Hãy khám phá ngay để tìm thấy những cuốn sách phù hợp với sở thích và nhu cầu của bạn. Xin cảm
+                        ơn bạn đã ghé thăm và hy vọng bạn sẽ có trải nghiệm mua sắm sách thú vị tại trang web của chúng
+                        tôi!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- end body -->
+
+        <!-- start footer -->
+        <footer th:replace="~{/shop/fragments::footer}"></footer>
+        <!-- end footer -->
+
+        <!-- Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+        <!-- Fontawsome -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    </div>
+
+</body>
+
+</html>

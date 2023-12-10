@@ -28,7 +28,7 @@ public class AdminServiceConfig implements UserDetailsService {
         return new User(
                     admin.getEmail(),
                     admin.getPassword(),
-                    authorities);
+                    authorities);        
         // admin.setStatus(true);
         // return new AdminDetail(admin);
     }

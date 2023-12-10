@@ -1,7 +1,6 @@
 package com.example.BookShop_Springboot.controller.admin;
 
 import com.example.BookShop_Springboot.model.Order;
-import com.example.BookShop_Springboot.model.Product;
 import com.example.BookShop_Springboot.service.OrderService;
 import com.itextpdf.html2pdf.HtmlConverter;
 

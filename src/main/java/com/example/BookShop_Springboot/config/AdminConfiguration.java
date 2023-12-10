@@ -1,5 +1,6 @@
 package com.example.BookShop_Springboot.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,18 +15,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class AdminConfiguration {
 
-        // @Bean
-        // private AuthenticationManager authenticationManager(){
-        // AuthenticationManagerBuilder authenticationManagerBuilder =
-        // http.getSharedObject(AuthenticationManagerBuilder.class);
-
-        // }
+        @Autowired
+        private AccessDeniedHandler accessDeniedHandler;
 
         @Bean
         public BCryptPasswordEncoder passwordEncoder() {
@@ -69,6 +67,7 @@ public class AdminConfiguration {
                                 // .anyRequest().permitAll()
 
                                 )
+                                .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler))
                                 .formLogin(login -> login.loginPage("/admin/login")
                                                 .loginProcessingUrl("/admin/do-login")
                                                 .defaultSuccessUrl("/admin/index", true)
@@ -86,8 +85,8 @@ public class AdminConfiguration {
                 return http.build();
         }
 
+        // security cho customer
         @Bean
-
         public SecurityFilterChain filterChainCustomer(HttpSecurity http) throws Exception {
                 AuthenticationManagerBuilder authenticationManagerBuilder = http
                                 .getSharedObject(AuthenticationManagerBuilder.class);
@@ -109,6 +108,7 @@ public class AdminConfiguration {
                                                 .requestMatchers("/**").permitAll()
 
                                 )
+                                .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler))
                                 .formLogin(login -> login.loginPage("/login")
                                                 .loginProcessingUrl("/do-login")
                                                 .failureHandler(((request, response, exception) -> {

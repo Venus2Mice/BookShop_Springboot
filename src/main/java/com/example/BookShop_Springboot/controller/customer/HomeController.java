@@ -54,11 +54,10 @@ public class HomeController {
         return "/shop/mainpage";
     }
 
-    @GetMapping("/contact")
-    public String contact(Model model) {
-        model.addAttribute("title", "Contact");
-        model.addAttribute("page", "Contact");
-        return "/shop/contact-us";
+    @GetMapping("/about-us")
+    public String about(Model model) {
+        model.addAttribute("title", "About Us");
+        return "/shop/about-us";
     }
 
 }

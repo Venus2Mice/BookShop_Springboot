@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
             if (imageProduct == null) {
                 product.setImage(null);
             } else {
-                imageUpload.uploadFile(imageProduct);
+                //imageUpload.uploadFile(imageProduct);
                 product.setImage(Base64.getEncoder().encodeToString(imageProduct.getBytes()));
             }
             product.setName(productDto.getName());
