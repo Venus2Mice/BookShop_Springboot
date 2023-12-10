@@ -161,7 +161,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete-product", method = { RequestMethod.PUT, RequestMethod.GET })
-    public String deletedProduct(Long id, RedirectAttributes redirectAttributes, Principal principal) {
+    public String disableProduct(Long id, RedirectAttributes redirectAttributes, Principal principal) {
         try {
             if (principal == null) {
                 return redirectLoginPath;
